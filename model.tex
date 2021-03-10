@@ -1,13 +1,33 @@
 \chapter{Model Development}
 \label{chap: model}
 
-This chapter introduces the model development procedure used in both classification tasks in Chapter \ref{chap: rul} and regression tasks in Chapter \ref{chap: reg}. The procedure involves:
+This chapter introduces a model development procedure used in both classification tasks in Chapter \ref{chap: rul} and regression tasks in Chapter \ref{chap: reg}. The procedure involves:
 \begin{enumerate*}[label=\itshape\alph*\upshape)]
-    \item signal processing,
-    \item feature extraction,
+    \item signal pre-processing,
+    \item feature generation,
     \item feature selection,
     \item model training,
     \item model validation, and
     \item hyperparameter tuning,
 \end{enumerate*}
 as shown in Figure .
+
+\section{Signal pre-processing}
+It is essential to reduce noises and extract regions of interest from signals by signal processing before we perform other analyses. Figure presents this process. First, DC bias was removed by subtracting the mean amplitude of a signal to prevent models from fitting on bias. Second, Considering the computational cost from the high resolution data, we choose to downsample the ultrasonic signals. Third, we define the region or interest as the interval containing the ultrasonic signal responses, and the other parts of a signal are discarded so that redundant information is not included.
+
+\section{Feature generation}
+Since ultrasonic sensor signals are unstructured, which is difficult to process, feature extraction methods are needed to create a representative set of values, i.e., features that aggregate the information from an entire signal. In this stage, physics-based and data-driven features are generated. The hybrid feature pool enables us to incorporate physics knowledge into models.
+
+\subsection{Physics-based features}
+Given that physics modeling is built on theories or comprehensive experimental studies, physics-based features are robust, explainable, and suitable for limited amounts of data. Therefore, features from traditional LU and NLU testings become potential candidates for the model.
+\begin{itemize}
+    \item Wave speed
+    \item Nonlinear acoustic parameter $\beta$
+\end{itemize}
+
+\subsection{Data-driven features}
+
+\section{Feature selection}
+\section{Model training}
+\section{Model validation}
+\section{Hyperparameter tuning}
