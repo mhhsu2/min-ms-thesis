@@ -19,10 +19,27 @@ It is essential to reduce noises and extract regions of interest from signals by
 Since ultrasonic sensor signals are unstructured, which is difficult to process, feature extraction methods are needed to create a representative set of values, i.e., features that aggregate the information from an entire signal. In this stage, physics-based and data-driven features are generated. The hybrid feature pool enables us to incorporate physics knowledge into models.
 
 \subsection{Physics-based features}
-Given that physics modeling is built on theories or comprehensive experimental studies, physics-based features are robust, explainable, and suitable for limited amounts of data. Therefore, features from traditional LU and NLU testings become potential candidates for the model.
+Given that physics modeling is built on theories or comprehensive experiment studies, physics-based features are robust, explainable, and suitable for applications having limited amounts of data. Therefore, features from traditional LU and NLU testings become potential candidates for the model.
 \begin{itemize}
-    \item Wave speed
+    \item Wave velocity
+    
+    In LU testing, ultrasonic wave velocity is a stiffness based measure which is associated with macroscopic damage such as crack/void coalescence and propagation. The wave speed is the distance divided by the time-of-flight (TOF) that a ultrasonic wave transverses in the material, as shown by Equation \eqref{eq: wave velocity}
+    
+    \begin{equation}
+        v = \frac{2D}{\Delta t}
+        \label{eq: wave velocity}
+    \end{equation}
+    where wave velocity is denoted by $v$, and $D$ is the thickness of the specimen. $\Delta t$ is the time difference between the actuation pulse and the response signal. Notice that, in our LU testing setup, one transducer severs as both the transmitter and receiver. Thus, the excitation signal travels $2D$ and the phase is changed $180^{\circ} $ when received.
+
     \item Nonlinear acoustic parameter $\beta$
+    
+    While wave velocity from LU is able to detect fatigue damage at macro-scale, it is limited because it cannot detect defects much smaller than the probing wavelength, e.g., 1mm. In contrast, NLU techniques are based on a different physical principle: nonlinear elasticity from nano- and micro-scale defects induce harmonic generation. The nonlinear acoustic parameter is related to the amplitude of generated harmonics. This nonlinear parameter changes due to defects such as dislocations, local plastic strain, precipitates, and micro-cracks, all of which are orders of magnitude smaller than the probing wavelength. Here, we simply calculate the nonlinear parameter by using the ratio between the amplitude of the fundamental and the harmonic waves given by Equation \eqref{eq: beta}
+
+    \begin{equation}
+        \beta = \frac{A_2}{A_1}
+        \label{eq: beta}
+    \end{equation}
+    where A1, A2 is the amplitude of the fundamental wave and the second-order harmonic wave, respectively.
 \end{itemize}
 
 \subsection{Data-driven features}
