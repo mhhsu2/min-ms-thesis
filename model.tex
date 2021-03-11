@@ -16,10 +16,10 @@ as shown in Figure .
 It is essential to reduce noises and extract regions of interest from signals by signal processing before we perform other analyses. Figure presents this process. First, DC bias was removed by subtracting the mean amplitude of a signal to prevent models from fitting on bias. Second, Considering the computational cost from the high resolution data, we choose to downsample the ultrasonic signals. Third, we define the region or interest as the interval containing the ultrasonic signal responses, and the other parts of a signal are discarded so that redundant information is not included.
 
 \section{Feature generation}
-Since ultrasonic sensor signals are unstructured, which is difficult to process, feature extraction methods are needed to create a representative set of values, i.e., features that aggregate the information from an entire signal. In this stage, physics-based and data-driven features are generated. The hybrid feature pool enables us to incorporate physics knowledge into models.
+Since ultrasonic sensor signals are unstructured, which is difficult to process, feature extraction methods are needed to create a representative set of values, i.e., features that aggregate the information from an entire signal. In this stage, physics-based and data-driven features are generated. The hybrid feature pool enables us to incorporate both physics knowledge and data-driven information into models.
 
 \subsection{Physics-based features}
-Given that physics modeling is built on theories or comprehensive experiment studies, physics-based features are robust, explainable, and suitable for applications having limited amounts of data. Therefore, features from traditional LU and NLU testings become potential candidates for the model.
+Given that physics modeling is built on theories or comprehensive experiment studies, physics-based features are robust, explainable, and suitable for applications having limited amounts of data such as the fatigue testing data. Therefore, features from traditional LU and NLU testings become potential candidates for the model.
 \begin{itemize}
     \item Wave velocity
     
@@ -33,7 +33,7 @@ Given that physics modeling is built on theories or comprehensive experiment stu
 
     \item Nonlinear acoustic parameter $\beta$
     
-    While wave velocity from LU is able to detect fatigue damage at macro-scale, it is limited because it cannot detect defects much smaller than the probing wavelength, e.g., 1mm. In contrast, NLU techniques are based on a different physical principle: nonlinear elasticity from nano- and micro-scale defects induce harmonic generation. The nonlinear acoustic parameter is related to the amplitude of generated harmonics. This nonlinear parameter changes due to defects such as dislocations, local plastic strain, precipitates, and micro-cracks, all of which are orders of magnitude smaller than the probing wavelength. Here, we simply calculate the nonlinear parameter by using the ratio between the amplitude of the fundamental and the harmonic waves given by Equation \eqref{eq: beta}
+    While wave velocity from LU testing is able to detect fatigue damage at macro-scale, it is limited because it cannot detect defects much smaller than the probing wavelength, e.g., 1mm. In contrast, NLU techniques are based on a different physical principle: nonlinear elasticity from nano- and micro-scale defects induce harmonic generation. The nonlinear acoustic parameter is related to the amplitude of generated harmonics. This nonlinear parameter changes due to defects such as dislocations, local plastic strain, precipitates, and micro-cracks, all of which are orders of magnitude smaller than the probing wavelength. Here, we apply fast Fourier transform (FFT) to a NLU measurement and simply calculate the nonlinear parameter by using the ratio between the amplitudes of the fundamental and the harmonic waves given by Equation \eqref{eq: beta}
 
     \begin{equation}
         \beta = \frac{A_2}{A_1}
@@ -43,6 +43,23 @@ Given that physics modeling is built on theories or comprehensive experiment stu
 \end{itemize}
 
 \subsection{Data-driven features}
+The physics-based features alone, however, are not enough to capture all of the information from the LU and NLU signals. As a result, a large number of features engineered from the time domain, frequency domain, and time-frequency domain of ultrasonic measurements are added to the feature pool.
+
+\begin{itemize}
+    \item Time domain features
+    
+    Time domain features are peak amplitudes, ratios between peak amplitudes, and components from Principal Component Analysis (PCA) and Independent Component Analysis (ICA). Statistics in time domain such as median, quantiles, variance, skewness, and kurtosis are also included. Besides, features from the envelope of a NLU signal, e.g., wave duration, wave energy, and the ratios between these quantities are calculated.
+
+    \item Frequency domain features
+    
+    Frequency domain analysis offers some of the information that is not presented in the time domain. This information is especially valuable for periodic signals such as ultrasonic measurements. Thus, after applying fast Fourier transform (FFT), peak amplitudes, ratios between peak amplitudes, peak frequencies, frequency centroid and variance in FFT spectrum are extracted as the frequency domain features.
+
+    \item Time-frequency domain features
+    
+    Ultrasonic signals are usually not stationary, i.e., frequency changes in time, because the interaction between ultrasonic waves and discontinuities within the material. Therefore, time-frequency analysis is needed to describe the phenomena. Discrete wavelet transform (DWT) is adopted to decompose ultrasonic measurements into several frequency bands. Then, statistics used in the time domain analysis is recorded for each frequency band.
+\end{itemize}
+
+The feature pool contains XXX features in total, and a list of candidate features for LU and NLU measurements is displayed in Table
 
 \section{Feature selection}
 \section{Model training}
