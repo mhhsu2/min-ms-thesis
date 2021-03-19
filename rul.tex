@@ -1,2 +1,7 @@
 \chapter{Remaining Useful Life Prediction}
 \label{chap: rul}
+
+In this chapter, we propose a framework for predicting RUL of EoL products based on the ultrasonic testing. The framework has two parts: \begin{enumerate*}[label=\itshape\alph*\upshape)]
+    \item a ML classification task and
+    \item a RUL inference procedure based on S-N curve.
+\end{enumerate*}  First, a ultrasonic signal is fed into ML classifiers to predict the loading condition and the number of fatigue cycles that a sample has gone through. Second, we estimate RUL from S-N curve with the predicted loading condition and fatigue cycles.
