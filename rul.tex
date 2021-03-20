@@ -15,11 +15,49 @@ In this RUL prediction task, the dataset is constructed on the ultrasonic measur
 \subsection{Target variables}
 Obviously, RUL is directly translated by the percentage of fatigue life that a sample has gone through. The percentage of fatigue life as a continuous target variable is normally treated as a regression task. However, since we only have 3 different percentage of fatigue life in the dataset, which is not ideal for regression modeling, we decided to view the percentage of fatigue life as a discrete variable and the problem becomes a classification task.
 
-Loading amplitude is another target variable to be considered because loading condition affects the mechanism of fatigue damage in a material. For instance, at 33\% fatigue life, a sample undergoes 11.7 kN loading and a sample undergoes 14.7 kN loading could exist different fatigue damages. Hence, we place a label that is a combination of loading amplitude and the percentage of fatigue life on each sample. Table XXX presents the labeled RUL prediction dataset.
+Loading amplitude is another target variable to be considered because loading condition affects the mechanism of fatigue damage in a material. For instance, at 33\% fatigue life, a sample undergoes 11.7 kN loading and a sample undergoes 14.7 kN loading could exist different fatigue damages. Hence, we place a label that is a combination of loading amplitude and the percentage of fatigue life on each sample. Table \ref{table: rul dataset} presents the labeled RUL prediction dataset.
 
+\begin{table}[tb]
+    \centering
+    \caption{Summary of the RUL prediction dataset}
+    \label{table: rul dataset}
+    \begin{tabularx}{\textwidth}{
+      >{\centering\arraybackslash\hsize=0.5\hsize}X|
+      >{\centering\arraybackslash\hsize=0.7\hsize}X|
+      >{\centering\arraybackslash\hsize=0.7\hsize}X|
+      >{\centering\arraybackslash}X
+    }\hline
+      Specimen ID & Measurement Locations & Number of Repeated Measurements & Label (amplitude, percent of fatigue life)\\
+      \hline
+          1&\multirow{15}{*}{$1\sim 9$}&\multirow{15}{*}{3}&\multirow{2}{*}{Class 1 (11.7 kN, 33\%)}\\
+          2& & & \\
+          \cline{1-1}\cline{4-4}
+          3& & &\multirow{2}{*}{Class 2 (11.7 kN, 67\%)}\\
+          4& & & \\
+          \cline{1-1}\cline{4-4}
+          5& & &\multirow{2}{*}{Class 3 (12.7 kN, 33\%)}\\
+          6& & & \\
+          \cline{1-1}\cline{4-4}
+          7& & &\multirow{2}{*}{Class 4 (12.7 kN, 67\%)}\\
+          8& & & \\
+          \cline{1-1}\cline{4-4}
+          9& & &\multirow{2}{*}{Class 5 (14.7 kN, 33\%)}\\
+          10& & & \\
+          \cline{1-1}\cline{4-4}
+          11& & &\multirow{2}{*}{Class 6 (14.7 kN, 67\%)}\\
+          12& & & \\
+          \cline{1-1}\cline{4-4}
+          13& & &\multirow{3}{*}{Class 0 (0 kN, 0\%)}\\
+          14& & & \\
+          15& & & \\\hline
+        \end{tabularx}
+      \end{table}
 
 \section{Classification model development}
+In this section, classifiers are designed for predicting loading condition (amplitude) and the percent of fatigue life that a sample had experienced. Several classifier designs are developed and the performance of each of those methods is evaluated based on the model development procedure in Chapter \ref{chap: model}.
+
 \subsection{Single multi-class classifier}
+
 \subsection{Multi-output classifier}
 \subsection{Two-stage classifier}
 \subsection{Hierarchical classifier}
