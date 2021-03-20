@@ -3,19 +3,21 @@
 
 In this chapter, we propose a framework for predicting RUL of EoL products based on the ultrasonic testing. The framework has two parts: \begin{enumerate*}[label=\itshape\alph*\upshape)]
     \item a ML classification task and
-    \item a RUL inference procedure based on S-N curve.
+    \item a RUL inference procedure based on a S-N curve.
 \end{enumerate*}  First, ultrasonic signals are fed into ML classifiers to predict the loading condition and the number of fatigue cycles that a sample has gone through. Second, we estimate RUL from a S-N curve with the predicted loading condition and fatigue cycles.
 
 \section{Problem formulation}
 Given the goal of predicting RUL on EoL products, we need to formulate this as a ML problem first. In this section, We discuss possible formulations by considering the characteristics of the fatigue dataset and the impact on the ML system in practice.
 
 \subsection{Dataset}
-In this RUL prediction task, the dataset is constructed on the ultrasonic measurements on the interrupted fatigue testing specimens in Table \ref{table: interrupted specimens}. There are 15 specimens and each of these were measured at 9 locations alongside 3 repeated measurements, producing 405 observations in total. Notice that we treat one measurement location in one specimen as a sample in the model training and validation with LOGOCV, as described in Section \ref{sec: model train and val}.
+In this RUL prediction task, the dataset is constructed on the ultrasonic measurements on the interrupted fatigue testing specimens in Table \ref{table: interrupted specimens}. There are 15 specimens and each of these were measured at 9 locations alongside 3 repeated measurements, producing 405 observations in total. Notice that we treat one measurement location in one specimen as a sample in the model training and validation procedure with LOGOCV, as described in Section \ref{sec: model train and val}. Besides, each specimen is tested by a combination from 4 loading amplitudes and 3 fatigue levels (the percentage of fatigue life), which forms the labels of a specimen.
 
-4 loading amplitudes and 3 fatigue levels (percentage of fatigue life) in 
+\subsection{Target variables}
+Obviously, RUL is directly translated by the percentage of fatigue life that a sample has gone through. The percentage of fatigue life as a continuous target variable is normally treated as a regression task. However, since we only have 3 different percentage of fatigue life in the dataset, which is not ideal for regression modeling, we decided to view the percentage of fatigue life as a discrete variable and the problem becomes a classification task.
+
+Loading amplitude is another target variable to be considered because loading condition affects the mechanism of fatigue damage in a material. For instance, at 33\% fatigue life, a sample undergoes 11.7 kN loading and a sample undergoes 14.7 kN loading could exist different fatigue damages. Hence, we place a label that is a combination of loading amplitude and the percentage of fatigue life on each sample. Table XXX presents the labeled RUL prediction dataset.
 
 
-\subsection{Fatigue condition labels}
 \section{Classification model development}
 \subsection{Single multi-class classifier}
 \subsection{Multi-output classifier}
