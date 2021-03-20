@@ -4,4 +4,26 @@
 In this chapter, we propose a framework for predicting RUL of EoL products based on the ultrasonic testing. The framework has two parts: \begin{enumerate*}[label=\itshape\alph*\upshape)]
     \item a ML classification task and
     \item a RUL inference procedure based on S-N curve.
-\end{enumerate*}  First, a ultrasonic signal is fed into ML classifiers to predict the loading condition and the number of fatigue cycles that a sample has gone through. Second, we estimate RUL from S-N curve with the predicted loading condition and fatigue cycles.
+\end{enumerate*}  First, ultrasonic signals are fed into ML classifiers to predict the loading condition and the number of fatigue cycles that a sample has gone through. Second, we estimate RUL from a S-N curve with the predicted loading condition and fatigue cycles.
+
+\section{Problem formulation}
+Given the goal of predicting RUL on EoL products, we need to formulate this as a ML problem first. In this section, We discuss possible formulations by considering the characteristics of the fatigue dataset and the impact on the ML system in practice.
+
+\subsection{Dataset}
+In this RUL prediction task, the dataset is constructed on the ultrasonic measurements on the interrupted fatigue testing specimens in Table \ref{table: interrupted specimens}. There are 15 specimens and each of these were measured at 9 locations alongside 3 repeated measurements, producing 405 observations in total. Notice that we treat one measurement location in one specimen as a sample in the model training and validation with LOGOCV, as described in Section \ref{sec: model train and val}.
+
+4 loading amplitudes and 3 fatigue levels (percentage of fatigue life) in 
+
+
+\subsection{Fatigue condition labels}
+\section{Classification model development}
+\subsection{Single multi-class classifier}
+\subsection{Multi-output classifier}
+\subsection{Two-stage classifier}
+\subsection{Hierarchical classifier}
+\subsection{Evaluation metrics}
+\subsection{Results}
+\section{RUL estimation with a S-N curve}
+\subsection{S-N curve with statistical distributions}
+\subsection{Results}
+\section{Discussion}
