@@ -23,8 +23,8 @@ Loading amplitude is another target variable to be considered because loading co
     \label{table: rul dataset}
     \begin{tabularx}{\textwidth}{
       >{\centering\arraybackslash\hsize=0.5\hsize}X|
-      >{\centering\arraybackslash\hsize=0.7\hsize}X|
-      >{\centering\arraybackslash\hsize=0.7\hsize}X|
+      >{\centering\arraybackslash\hsize=0.6\hsize}X|
+      >{\centering\arraybackslash\hsize=0.6\hsize}X|
       >{\centering\arraybackslash}X
     }\hline
       Specimen ID & Measurement Locations & Number of Repeated Measurements & Label (amplitude, percent of fatigue life)\\
@@ -53,12 +53,15 @@ Loading amplitude is another target variable to be considered because loading co
         \end{tabularx}
       \end{table}
 
-\section{Classification model development}
-In this section, classifiers are designed for predicting loading condition (amplitude) and the percent of fatigue life that a sample had experienced. Several classifier designs are developed and the performance of each of those methods is evaluated based on the model development procedure in Chapter \ref{chap: model}.
+\section{Design of classifiers}
+In this section, classifiers are designed for predicting the loading condition (amplitude) and the percent of fatigue life that a sample had experienced. Several classifiers are developed and the performance of each of those methods is evaluated based on the model development procedure in Chapter \ref{chap: model}.
 
-\subsection{Single multi-class classifier}
+\subsection{Multi-class classifier}
+A multi-class classifier is trained to classify a sample into one of the 7 classes. Figure XXX shows the inference process of a multi-class classifier. In multi-class problems, the classes are mutually exclusive. For example, class 1 and class 3 have nothing related. Despite we claimed that various loading conditions result in different fatigue behaviors in material, however, some similarities are still existed, e.g., at 33\% fatigue life, samples undergone 11.7 kN and 12.7 kN are expected to be on a similar damage level. This idea can be applied to the commonality in samples at different percents of fatigue life as well. With the assumption about mutual exclusivity, multi-class formulation does not capture these characteristics of the data.
 
 \subsection{Multi-output classifier}
+On the other hand, multi-output classification can extract the shared information among loading conditions by predicting the loading amplitude and percentage of fatigue life separately. A multi-output classier outputs multiple labels, where each label is considered as a multi-class classification problem. In this design, we build one classifier for predicting the loading amplitude from input signals; another one for classifying a signal into one of the percentages of fatigue life. Each of the two classifiers are trained separately with the same model development procedure but different target variables. We call these two classifiers loading amplitude classifier (LAC) and fatigue cycles classifier (FCC), respectively. Figure XXX depicts the structure of this multi-output classifier.
+
 \subsection{Two-stage classifier}
 \subsection{Hierarchical classifier}
 \subsection{Evaluation metrics}
