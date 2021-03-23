@@ -54,6 +54,7 @@ Loading amplitude is another target variable to be considered because loading co
       \end{table}
 
 \section{Design of classifiers}
+\label{sec: design of classifiers}
 In this section, classifiers are designed for predicting the loading condition (amplitude) and the percent of fatigue life that a sample had experienced. Several classifiers are developed and the performance of each of those methods is evaluated based on the model development procedure in Chapter \ref{chap: model}.
 
 \subsection{Multi-class classifier}
@@ -79,7 +80,50 @@ For example, 11.7 kN loading amplitude is predicted by the LAC. Therefore, FCC\t
 We calculate accuracy, recall, precision, and F1-measure to evaluate a classifier's performance with the LOGOCV result, and confusion matrices are also presented. Although there exist other evaluation metrics for multi-output problems, we evaluate the aforementioned classifiers in a unified multi-class classification problem with the label defined in Table \ref{table: rul dataset}. Thus, these classifiers are comparable with each other. Since there is not much class imbalance in the dataset, accuracy is an overall indicator for a model's performance. Furthermore, the model's performance on each class is provided by recall, precision and F1-measure. Finally, confusion matrices serve as a visualization for summarizing the detailed result of the testing of a classifier. We let practitioners to decide the importance of each metric as it depends on different scenarios. For example, recall may be more important than precision in classifying highly-fatigued samples due to the consideration of safety.
 
 \subsection{Results}
+In this subsection, the classification performance of the proposed methods is presented and are compared with each other in Table XXX. A classifier's learning algorithm and the number of features determined by the model development procedure are also listed. It is noticed that the proposed hierarchical classifier outperforms other methods discussed in Section \ref{sec: design of classifiers} effectively leveraging the characteristics of the RUL data. Therefore, the hierarchical classifier is chosen to demonstrate the RUL estimation algorithm in the following sections.
+
 \section{RUL estimation with a S-N curve}
+In the proposed framework, after obtaining the predicted loading amplitude and percentage of fatigue life, we estimate the RUL for a sample with the S-N curve of that material.
+
 \subsection{S-N curve with statistical distributions}
-\subsection{Results}
+Although a S-N curve is often referred to the best-fit line for fatigue data, fatigue life data can be modeled as statistical distributions to account for the variability in fatigue life. The randomness in the fatigue life comes from the stochastic behavior in fatigue process and the variance of microstructure in materials. As a result, the fatigue life has been widely modeled by statistical distributions including Gaussian (normal), log-normal, and Weibull distribution. Due to the limited amount of available fatigue life data in this research, we use a Gaussian normal distribution to model the fatigue life $X_a$ at a loading amplitude $a$ as
+\begin{equation}
+    X_a \sim Normal(\bar{x_a}, \frac{s_a^2}{n_a})
+\end{equation}
+where $\bar{x_a}$ is the sample mean, $s_a$ is the sample standard variance, and $n_a$ is the sample size of fatigue data at loading amplitude $a$.
+
+\subsection{RUL inference procedure}
+A S-N curve serves as a look-up table for linking the classifier's predictions to the RUL. The inference procedure is detailed below:
+\begin{enumerate}
+    \item Plotting the predicted loading amplitude and percentage of fatigue life. For example, the prediction, Class 1 (11.7 kN, 33\% fatigue life), is plotted as the red dot in Figure XXX.
+    \item Determine the fatigue life with the corresponding loading amplitude from the S-N curve. The fatigue life can be in the format of a single value such as the median fatigue life or a statistical distribution.
+    \item If the fatigue life is represented by a value, the RUL can be estimated by Equation \eqref{eq: rul - value}: 
+    \begin{equation}
+        \label{eq: rul - value}
+        RUL = N_{fl} - N_{c}
+    \end{equation}
+    where $N_{fl}$ is the fatigue life from a S-N curve and $N_c$ is the number of cycles translated from the predicted percentage of fatigue life a sample has undergone.
+
+    If the fatigue life at a given loading amplitude is modeled as a normal distribution, one way to estimate the RUL of a sample is to transform the fatigue life distribution by a factor of the predicted percentage of fatigue life, as in Equation \eqref{eq: fatigue life dist} to \eqref{eq: rul - dist}:
+    \begin{equation}
+        \label{eq: fatigue life dist}
+        X \sim Normal(\mu, \sigma^2)
+    \end{equation}
+    \begin{equation}
+        \label{eq: rul transform}
+        Y = pX
+    \end{equation}
+    \begin{equation}
+        \label{eq: rul - dist}
+        Y \sim Normal(p\mu, p^2\sigma^2)
+    \end{equation}
+    where $Y$ is a random variable representing the RUL of a sample; $X$ follows a normal distribution $Normal (\mu, \sigma^2)$ with $\mu$ as the mean and $\sigma^2$ as the variance of the fatigue life, and $F$ is scaled by $p$ which is the predicted percentage of fatigue life. Then, the point estimates, e.g., mean, median, or 25\% quantile, as well as the interval estimate of RUL can be inferred. For instance, the 90\% confidence interval of RUL is
+    \begin{equation}
+        CI = [\mu - z_{0.05} p \sigma,\ \mu + z_{0.95} p \sigma]
+    \end{equation}
+\end{enumerate}
+
+\subsection{Examples}
+In this subsection, we demonstrate two examples of the RUL estimation based on the proposed framework. Because the true fatigue life of the testing samples in the interrupted fatigue testing data is not available, we do not evaluate the accuracy quantitatively in this stage. Instead, the estimated 90\% confidence intervals of the RUL for specimen A and B are presented in Table X and X.
+
 \section{Discussion}
