@@ -7,7 +7,8 @@ In this chapter, we propose a framework for predicting RUL of EoL products based
 \end{enumerate*}  First, ultrasonic signals are fed into ML classifiers to predict the loading condition and the number of fatigue cycles that a sample has gone through. Second, we estimate RUL from a S-N curve with the predicted loading condition and fatigue cycles.
 
 \section{Problem formulation}
-Given the goal of predicting RUL on EoL products, we need to formulate this as a ML problem first. In this section, We discuss possible formulations by considering the characteristics of the fatigue dataset and the impact on the ML system in practice.
+\label{sec: rul prob formulation}
+Given the goal of predicting the RUL of EoL products, we need to formulate this as a ML problem first. In this section, We discuss possible formulations by considering the characteristics of the fatigue dataset and the impact on the ML system in practice.
 
 \subsection{Dataset}
 In this RUL prediction task, the dataset is constructed on the ultrasonic measurements on the interrupted fatigue testing specimens in Table \ref{table: interrupted specimens}. There are 15 specimens and each of these were measured at 9 locations alongside 3 repeated measurements, producing 405 observations in total. Notice that we treat one measurement location in one specimen as a sample in the model training and validation procedure with LOGOCV, as described in Section \ref{sec: model train and val}. Besides, each specimen is tested by a combination from 4 loading amplitudes and 3 fatigue levels (the percentage of fatigue life), which forms the labels of a specimen.
@@ -127,3 +128,4 @@ A S-N curve serves as a look-up table for linking the classifier's predictions t
 In this subsection, we demonstrate two examples of the RUL estimation based on the proposed framework. Because the true fatigue life of the testing samples in the interrupted fatigue testing data is not available, we do not evaluate the accuracy quantitatively in this stage. Instead, the estimated 90\% confidence intervals of the RUL for specimen A and B are presented in Table X and X.
 
 \section{Discussion}
+One advantage of using the S-N curve to estimate RUL is that it can be quickly adopted to those materials whose S-N curve has constructed, which is common in the industry.

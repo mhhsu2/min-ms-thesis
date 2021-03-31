@@ -1,2 +1,89 @@
-\chapter{Residual Stress \& FWHM Prediction}
+\chapter{Residual Stress and FWHM Prediction}
 \label{chap: reg}
+
+Because of the efficiency of ultrasonic testings in inspection area and cost, we explore the potential of using ultrasonic testings to measure quantities of interest which is originally obtained from XRD analysis. In this chapter, we present regression models for estimating the residual stress and the FWHM of XRD peaks on fatigue samples based on the ultrasonic measurements. 
+
+\section{Problem formulation}
+Following the same manner in Section \ref{sec: rul prob formulation}, we first translate the prediction tasks into ML regression problems based on the available dataset.
+
+\subsection{Dataset}
+The dataset for predicting residual stress and FWHM is composed of the XRD results and ultrasonic measurements. To obtain the residual stress and FWHM, the XRD analysis were performed on a subset of samples in the RUL dataset in Table \ref{table: rul dataset}, containing 8 specimens and 3 measurement locations for each specimen. Table \ref{table: rs dataset} and \ref{table: fwhm dataset} are the summary of the RS and FWHM dataset, respectively. It is worth mentioning that Specimen 7's relatively low FWHM values could indicate that there are microcrack initiations. Hence, we exclude samples from Specimen 7 in the FWHM prediction task.
+
+\begin{table}[tb]
+    \centering
+    \caption{Summary of the RS prediction dataset}
+    \label{table: rs dataset}
+    \begin{tabularx}{\textwidth}{
+      >{\centering\arraybackslash}X|
+      >{\centering\arraybackslash}X|
+      >{\centering\arraybackslash}X|
+      >{\centering\arraybackslash}X
+    }
+    \hline
+    & \multicolumn{3}{c}{Residual Stress (MPa)}\\
+    \hline
+      Specimen ID & Location 1 & Location 2 & Location 3\\
+      \hline
+      2 & -61.7 & -75.6 & -80.2 \\
+      4 & -59.9 & -69.6 & -76.6 \\
+      6 & -60.3 & -75.3 & -79.6 \\
+      7 & -50.8 & -59.6 & -66.2 \\
+      8 & -57.3 & -65.5 & -79.7 \\
+      10 & -43.3 & -47.0 & -50.8 \\
+      12 & -38.8 & -43.2 & -50.0 \\
+      14 & -79 & -76.7 & -85.7 \\
+      \hline
+    \end{tabularx}
+
+    \footnotesize{The negative sign indicates the compressive residual stresses.}
+\end{table}
+
+
+\begin{table}[tb]
+    \centering
+    \caption{Summary of the FWHM prediction dataset}
+    \label{table: fwhm dataset}
+    \begin{tabularx}{\textwidth}{
+      >{\centering\arraybackslash}X|
+      >{\centering\arraybackslash}X|
+      >{\centering\arraybackslash}X|
+      >{\centering\arraybackslash}X
+    }
+    \hline
+    & \multicolumn{3}{c}{FWHM ($^{\circ}$)}\\
+    \hline
+      Specimen ID & Location 1 & Location 2 & Location 3\\
+      \hline
+      2 & 0.354 & 0.353 & 0.355 \\
+      4 & 0.350 & 0.354 & 0.353 \\
+      6 & 0.358 & 0.359 & 0.363 \\
+      7 & 0.307 & 0.320 & 0.321 \\
+      8 & 0.357 & 0.355 & 0.358 \\
+      10 & 0.356 & 0.358 & 0.360 \\
+      12 & 0.354 & 0.353 & 0.355 \\
+      14 & 0.338 & 0.340 & 0.346 \\
+      \hline
+
+    \end{tabularx}
+\end{table}
+
+\subsection{Target variables}
+RS is known to influence the fatigue behaviors including crack initiation and propagation. FWHM is also an indicator for evaluating crack propagation. As a result, accurately predicting RS and FWHM based on ultrasonic measurements is beneficial to assist the fatigue level estimation and thus becomes the outcome of interest in this chapter. Here, the problem is formulated as two regression tasks:
+\begin{enumerate*}[label=\itshape\alph*\upshape)]
+    \item an univariate regression with RS as a target variable, and
+    \item an univariate regression with FWHM as a target variable.
+\end{enumerate*}
+
+
+\section{Residual stress prediction}
+\label{sec: rs prediction}
+In this section, the regression model for predicting RS based on ultrasonic signals is developed by following the procedure in Chapter \ref{chap: model}. Mean absolute error (MAE), root mean squared error(RMSE), and mean absolute percentage error (MAPE) are used to asses the LOGOCV results. Table XXX compares the performance of ... 
+
+The best performing model for RS prediction is ... and Figure XXX displays the overall model performance by showing the actual and predicted RS, where a perfect model should follow the black line.
+
+\section{FWHM prediction}
+Similarly, the FWHM prediction model is built based on the procedure in Chapter \ref{chap: model} and is evaluated with the same metrics in Section \ref{sec: rs prediction}. Table XXX is the comparison of model performance for candidate learning algorithms.
+
+XXX achieves the best prediction result and its model performance is visualized in Figure XXX.
+
+\section{Discussion}
