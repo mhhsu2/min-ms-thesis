@@ -108,6 +108,21 @@ and Spigarelli, S.},
   abstract = {Quantitative Nondestructive Evaluation (QNDE) provides techniques to assess deterioration of a material or a structure, and to detect and characterize discrete flaws. It plays, therefore, an important role in the prevention of failure. QNDE techniques are used in processing, manufacturing and for in-service inspection. QNDE is particularly important for the in-service inspection of high-cost and critical load-bearing structures whose failure could have tragic consequences. In this paper, we briefly review the most important techniques, and then we focus the discussion on quantitative ultrasonics, particularly for crack detection and for the determination of elastic constants. The important role of measurement models is emphasized. New techniques in quantitative ultrasonics are discussed, including laser-based ultrasonics and acoustic microscopy. The possible applications of neural networks are indicated. Attention is also devoted to the probability of detection concept and its relation to probabilistic fatigue methods and fatigue reliability.}
 }
 
+@article{nde-review-WISNER2020,
+  author   = {Wisner, Brian and Mazur, Krzysztof and Kontsos, Antonios},
+  title    = {The use of nondestructive evaluation methods in fatigue: A review},
+  journal  = {Fatigue \& Fracture of Engineering Materials \& Structures},
+  volume   = {43},
+  number   = {5},
+  pages    = {859-878},
+  keywords = {crack growth, damage, fatigue, life predictions, nondestructive evaluation (NDE)},
+  doi      = {https://doi.org/10.1111/ffe.13208},
+  url      = {https://onlinelibrary.wiley.com/doi/abs/10.1111/ffe.13208},
+  eprint   = {https://onlinelibrary.wiley.com/doi/pdf/10.1111/ffe.13208},
+  abstract = {Abstract Efforts to understand fatigue in materials generally rely on defining relationships between the material response to fatigue loading and the evolving remaining material life portion. Typical measurements and data associated with such relationships include load (stress), displacement (strain), and associated properties (eg, mean stress and strain, energy dissipation, and residual stiffness). In addition to obtaining such measurements, efforts have been made to leverage nondestructive evaluation (NDE) methods to obtain additional information and enhance the description of the material fatigue response, especially its evolution due to interacting material-microstructure-property relationships. Given the range of available NDE methods and the number of materials they can be applied to, a critical overview of related investigations is presented in this article. Specifically, the state of the art of applying optical, thermal, acoustic, electromagnetic, X-ray, and other diffraction NDE methods in fatigue investigations is provided and discussed. The methods are individually described for background and defining their relationship to fatigue, followed by descriptions of their current uses and contributions to enhancing the understanding of fatigue, and their limitations and ways that improvements could be made.},
+  year     = {2020}
+}
+
 @article{nde-thermo-FAN20121,
   title    = {A new application of the infrared thermography for fatigue evaluation and damage assessment},
   journal  = {International Journal of Fatigue},
@@ -722,4 +737,51 @@ and Zerhouni, N.},
   author   = {M.I. Mazhar and S. Kara and H. Kaebernick},
   keywords = {Remaining life, Reuse, Reliability},
   abstract = {Environmental awareness and legislative pressures have made manufacturers responsible for the take-back and end-of-life treatment of their products. To competitively exploit these products, one option is to incorporate used components in “new” or remanufactured products. However, this option is partly limited by a firm's ability to assess the reliability of used components. A comprehensive two-step approach is proposed. The first stage phase statistically analyzes the behavior of components for reuse. A well-known reliability assessment method, the Weibull analysis, is applied to the time-to-failure data to assess the mean life of components. In the second phase, the degradation and condition monitoring data are analyzed by developing an artificial neural network (ANN) model. The advantages of this approach over traditional approaches employing multiple regression analysis are highlighted with empirical data from a consumer product. Finally, the Weibull analysis and the ANN model are then integrated to assess the remaining useful life of components for reuse. This is a critical advance in sustainable management of supply chains since it allows for a better understanding of not only service requirements of product, but the remaining life in a product and hence its suitability for reuse or remanufacture. Future work should assess: (1) reduction in downtime of process equipment through the implementation of this technique as a means to better manage preventative maintenance; (2) reduce field failure of remanufactured product; (3) selling-service strategy through implementation of the proposed methodology.}
+}
+
+# ML-based NDE
+@article{nde-ml-thermography-defect-Baumgartl2020,
+  author   = {Baumgartl, Hermann
+and Tomas, Josef
+and Buettner, Ricardo
+and Merkel, Markus},
+  title    = {A deep learning-based model for defect detection in laser-powder bed fusion using in-situ thermographic monitoring},
+  journal  = {Progress in Additive Manufacturing},
+  year     = {2020},
+  month    = {Sep},
+  day      = {01},
+  volume   = {5},
+  number   = {3},
+  pages    = {277-285},
+  abstract = {Additive manufacturing of metal components with laser-powder bed fusion is a very complex process, since powder has to be melted and cooled in each layer to produce a part. Many parameters influence the printing process; however, defects resulting from suboptimal parameter settings are usually detected after the process. To detect these defects during the printing, different process monitoring techniques such as melt pool monitoring or off-axis infrared monitoring have been proposed. In this work, we used a combination of thermographic off-axis imaging as data source and deep learning-based neural network architectures, to detect printing defects. For the network training, a k-fold cross validation and a hold-out cross validation were used. With these techniques, defects such as delamination and splatter can be recognized with an accuracy of 96.80{\%}. In addition, the model was evaluated with computing class activation heatmaps. The architecture is very small and has low computing costs, which means that it is suitable to operate in real time even on less powerful hardware.},
+  issn     = {2363-9520},
+  doi      = {10.1007/s40964-019-00108-3},
+  url      = {https://doi.org/10.1007/s40964-019-00108-3}
+}
+
+@article{nde-ml-interferometry-quality-Stad2020,
+  author  = {Stadter,Christian  and Schmoeller,Maximilian  and von Rhein,Lara  and Zaeh,Michael F. },
+  title   = {Real-time prediction of quality characteristics in laser beam welding using optical coherence tomography and machine learning},
+  journal = {Journal of Laser Applications},
+  volume  = {32},
+  number  = {2},
+  pages   = {022046},
+  year    = {2020},
+  doi     = {10.2351/7.0000077},
+  url     = {https://doi.org/10.2351/7.0000077},
+  eprint  = {https://doi.org/10.2351/7.0000077}
+}
+
+@article{nde-ml-ae-fatigue-LOUTAS2017522,
+  title    = {A data-driven probabilistic framework towards the in-situ prognostics of fatigue life of composites based on acoustic emission data},
+  journal  = {Composite Structures},
+  volume   = {161},
+  pages    = {522-529},
+  year     = {2017},
+  issn     = {0263-8223},
+  doi      = {https://doi.org/10.1016/j.compstruct.2016.10.109},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0263822316316506},
+  author   = {Theodoros Loutas and Nick Eleftheroglou and Dimitrios Zarouchas},
+  keywords = {SHM, Remaining useful life, Machine learning techniques, Condition-based reliability, Acoustic emission, Composite materials},
+  abstract = {An innovative prognostic data-driven framework is proposed to deal with the real-time estimation of the remaining useful life of composite materials under fatigue loading based on acoustic emission data and a sophisticated multi-state degradation Non Homogeneous Hidden Semi Markov Model (NHHSMM). The acoustic emission data pre-processing to extract damage sensitive health indicators and the maximum likelihood estimation of the model parameters from the training set are discussed in detail. In parallel, a Bayesian version of a well-established machine learning technique i.e. neural networks, is utilized to approach the remaining useful life estimation as a non-linear regression task. A comparison between the two algorithms training, operation, input-output and performance, highlights their ability to offer reliable remaining useful life estimates conditional on health monitoring data from composite structures under service loading. Both approaches result in very good estimations of the mean remaining useful life of unseen data. NHHSMM is concluded as the preferable option as it provides much less volatile predictions and more importantly is characterized by confidence intervals which shorten as more data come into play, an essential trait of a robust prognostic algorithm.}
 }
