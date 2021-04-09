@@ -1,2 +1,30 @@
-\chapter{Conclusion}
+\chapter{Conclusion and Future Work}
 \label{chap: concl}
+
+\section{Conclusion}
+A ML-based NDE methodology for assessing the accumulated fatigue damage level in terms of RUL, FWHM of XRD peak, and residual stress in recycled materials is developed, which aims to detect defects at various fatigue stages by combining the LU and NLU measurements and providing an ex-situ approach for the prognosis of useful life. An automatic pipeline is used to generate a pool of engineered features from raw ultrasonic signals, select useful features, validate models, and optimize classifiers and regressors appeared in this thesis. 
+
+A data-driven RUL prediction framework with the hierarchical classifiers and the statistical S-N curve is presented to bridge the research gap of RUL estimation in EoL products. The design of hierarchical classification scheme utilizes the characteristics of the fatigue dataset to predict the 7 combinations of the loading amplitude and the percent of fatigue life. Then, the use of statistical S-N curve incorporates the stochastic nature of fatigue life into the estimation of RUL. The framework relies on simple learning algorithms and does not require a large amount of data for training and validation, which shows the potential to be be quickly adopted to other materials.
+
+In addition, two regression tasks for predicting residual stress and FWHM measured by XRD using ultrasonic testings both achieve high prediction accuracy. The little inconsistency between ultrasonic predictions and XRD measurements implies the potential to apply LU and NLU testings on measuring residual stress and other fatigue damage indicators in a more cost-efficient and faster way.
+
+We envision the proposed NDE methodology and the prediction framework can will equip manufacturers with responsive screening of incoming recycled materials, and lead to a significant increase in using recycled materials for remanufacturing and high‐quality products that meet customer expectations.
+
+\section{Future work}
+In practice, nevertheless, there exist several limitations for the current work and suggested future research efforts are discussed in the following directions.
+
+\subsection{Collect more data for model development and validation}
+More data is needed to make our models generalizable in real world applications even though we have utilized a cross-validation method, LOGOCV, to achieve good prediction accuracy while retaining the generalizability of the model performance with the limited amount of data. In the current LOGOCV, the group left out in the testing set is the 3 repeated measurements at one location; however, training data from neighboring locations at the same specimen still exist high similarity with the testing group, which causes the potential data leakage in the training phase. As a result, more data could enable better estimate of model performance by treating each specimen as a individual group in LOGOCV.
+
+True fatigue life, i.e., the number of cycles which a sample fails at, for a interrupted fatigue testing specimen is required to justify the proposed RUL estimation framework. Currently, the samples used to generate the predicted RUL were not tested until fracture,which prevents us from quantifying the error of our RUL prediction. Besides, more fatigue life data allows us to fit the distributions more precisely and/or select a distribution family, e.g., Weibull, exponential, log-normal, etc., that better describes the fatigue life behavior. As a result, improvements in the accuracy and robustness of the RUL estimation can be achieved.
+
+Additionally, a finer measurement interval can extend the classification task so that our classifiers can classify a sample into more fatigue levels, e.g., 15\%, 33\%, 50\%, 67\%, and 85\%, or enable us to directly treat the estimation RUL as a regression task. With this, more advanced models can be researched and better applicability as well as flexibility for practitioners are expected.
+
+\subsection{Multi-sensor fusion for fatigue damage assessment}
+The integration of multiple sensors has the capability of detecting different types of defects and improving the robustness of fatigue damage evaluation. However, this work only studies the combination of LU and NLU testings. There are other NDE techniques such as infrared thermography, acoustic emission, etc., available to be added to the proposed NDE methodology. By integrating more sensors into the system, prediction performance will be further improved.
+
+Moreover, sensor fusion can be categorized into several levels, e.g., data level, feature level, and decision level. We present a feature level fusion of LU and NLU signals in this thesis. Other fusion methods, especially decision level, are worth investigating because sensor selection can be conducted by for example, discarding sensors that degrade the model performance at different fatigue damage levels. Therefore, a cost-effective quantitative evaluation of fatigue progression system can be designed.
+
+sensor fusion
+
+bayesian method
