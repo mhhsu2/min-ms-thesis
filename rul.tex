@@ -81,15 +81,14 @@ For example, 11.7 kN loading amplitude is predicted by the LAC. Therefore, FCC\t
 We calculate accuracy, recall, precision, and F1-measure to evaluate a classifier's performance with the LOGOCV result, and confusion matrices are also presented. Although there exist other evaluation metrics for multi-output problems, we evaluate the aforementioned classifiers in a unified multi-class classification problem with the label defined in Table \ref{table: rul dataset}. Thus, these classifiers are comparable with each other. Since there is not much class imbalance in the dataset, accuracy is an overall indicator for a model's performance. Furthermore, the model's performance on each class is provided by recall, precision and F1-measure. Finally, confusion matrices serve as a visualization for summarizing the detailed result of the testing of a classifier. We let practitioners to decide the importance of each metric as it depends on different scenarios. For example, recall may be more important than precision in classifying highly-fatigued samples due to the consideration of safety.
 
 \subsection{Results}
-In this subsection, the classification performance of the proposed methods is presented in Table XXX. 
-The learning algorithm and the number of features determined by the model development procedure are also listed. It is noticed that the proposed hierarchical classifier outperforms the other methods discussed in Section \ref{sec: design of classifiers} 
-% by effectively leveraging the characteristics of the RUL data. 
-Therefore, the hierarchical classifier is chosen to demonstrate the RUL estimation algorithm in the following sections.
+This subsection summarizes the results of the developed classifier designs. Table \ref{table: summary class algo} presents the learning algorithms and the number of features determined by the model development procedure in Section \ref{chap: model}. Figure \ref{fig: f1 comparison} depicts the performance of each classifier design by class. Overall, it is noticed that the proposed hierarchical classifier outperforms the other methods discussed in Section \ref{sec: design of classifiers} for every class except Class 6.Therefore, the hierarchical classifier is chosen to demonstrate the RUL estimation algorithm in the following sections.
+
+The recall, precision, and F1-score for the hierarchical classifier is illustrated in Fig
 
 \begin{table}[tb]
     \centering
     \caption{Summary of classification algorithms and model performance}
-    \label{table: rul dataset}
+    \label{table: summary class algo}
     \begin{tabularx}{\textwidth}{
       >{\centering\arraybackslash}X
       >{\centering\arraybackslash}X
@@ -122,6 +121,16 @@ Therefore, the hierarchical classifier is chosen to demonstrate the RUL estimati
       \bottomrule
     \end{tabularx}
 \end{table}
+
+\begin{figure}[tb]
+    \includegraphics[width=\linewidth]{fig/f1_comparison.png}
+    \caption{Comparison of F1-score by class and classifier designs}
+    \label{fig: f1 comparison}
+\end{figure}
+
+% \begin{figure}
+%     \includegraphics[width=\linewidth]{fig/}
+% \end{figure}
 
 
 \section{RUL estimation with a S-N curve}
