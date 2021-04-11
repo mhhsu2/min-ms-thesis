@@ -28,7 +28,7 @@ Loading amplitude is another target variable to be considered because loading co
       >{\centering\arraybackslash\hsize=0.6\hsize}X|
       >{\centering\arraybackslash}X
     }\hline
-      Specimen ID & Measurement Locations & Number of Repeated Measurements & Label (amplitude, percent of fatigue life)\\
+      Specimen ID & Measurement Locations & Number of Repeated Measurements & Label (amplitude, percent of fatigue life) \\
       \hline
           1&\multirow{15}{*}{$1\sim 9$}&\multirow{15}{*}{3}&\multirow{2}{*}{Class 1 (11.7 kN, 33\%)}\\
           2& & & \\
@@ -51,8 +51,8 @@ Loading amplitude is another target variable to be considered because loading co
           13& & &\multirow{3}{*}{Class 0 (0 kN, 0\%)}\\
           14& & & \\
           15& & & \\\hline
-        \end{tabularx}
-      \end{table}
+    \end{tabularx}
+\end{table}
 
 \section{Design of classifiers}
 \label{sec: design of classifiers}
@@ -81,7 +81,48 @@ For example, 11.7 kN loading amplitude is predicted by the LAC. Therefore, FCC\t
 We calculate accuracy, recall, precision, and F1-measure to evaluate a classifier's performance with the LOGOCV result, and confusion matrices are also presented. Although there exist other evaluation metrics for multi-output problems, we evaluate the aforementioned classifiers in a unified multi-class classification problem with the label defined in Table \ref{table: rul dataset}. Thus, these classifiers are comparable with each other. Since there is not much class imbalance in the dataset, accuracy is an overall indicator for a model's performance. Furthermore, the model's performance on each class is provided by recall, precision and F1-measure. Finally, confusion matrices serve as a visualization for summarizing the detailed result of the testing of a classifier. We let practitioners to decide the importance of each metric as it depends on different scenarios. For example, recall may be more important than precision in classifying highly-fatigued samples due to the consideration of safety.
 
 \subsection{Results}
-In this subsection, the classification performance of the proposed methods is presented and are compared with each other in Table XXX. A classifier's learning algorithm and the number of features determined by the model development procedure are also listed. It is noticed that the proposed hierarchical classifier outperforms other methods discussed in Section \ref{sec: design of classifiers} effectively leveraging the characteristics of the RUL data. Therefore, the hierarchical classifier is chosen to demonstrate the RUL estimation algorithm in the following sections.
+In this subsection, the classification performance of the proposed methods is presented in Table XXX. 
+The learning algorithm and the number of features determined by the model development procedure are also listed. It is noticed that the proposed hierarchical classifier outperforms the other methods discussed in Section \ref{sec: design of classifiers} 
+% by effectively leveraging the characteristics of the RUL data. 
+Therefore, the hierarchical classifier is chosen to demonstrate the RUL estimation algorithm in the following sections.
+
+\begin{table}[tb]
+    \centering
+    \caption{Summary of classification algorithms and model performance}
+    \label{table: rul dataset}
+    \begin{tabularx}{\textwidth}{
+      >{\centering\arraybackslash}X
+      >{\centering\arraybackslash}X
+      >{\centering\arraybackslash}X
+      >{\centering\arraybackslash}X
+    }
+    \toprule
+      Design of Classifiers & Algorithm & No. Selected Features & Macro Average F1-score \\
+      \midrule
+      \multirow{4}{*}{Multi-class} & & \multirow{4}{*}{35} & \multirow{4}{*}{0.75} \\
+      & Logistic & & \\
+      & regression & & \\
+      & & & \\
+      % 
+      \multirow{4}{*}{Multi-output} & & & \multirow{4}{*}{0.77} \\
+      & Logistic & 59 (LAC) & \\
+      & regression & 51 (FCC) & \\ 
+      & & & \\
+      %
+      \multirow{4}{*}{Two-stage} & & & \multirow{4}{*}{0.80} \\
+      & Logistic & 59 (LAC) & \\
+      & regression & 51 (FCC\textsubscript{two-stage}) & \\
+      & & & \\
+      %
+      \multirow{4}{*}{Hierarchical} &  & 59 (LAC) & \multirow{4}{*}{0.83} \\
+      & Logistic & 10 (FCC\textsubscript{11.7 kN}) & \\
+      & regression & 40 (FCC\textsubscript{12.7 kN}) & \\
+      &  & 6 (FCC\textsubscript{14.7 kN}) & \\
+      %
+      \bottomrule
+    \end{tabularx}
+\end{table}
+
 
 \section{RUL estimation with a S-N curve}
 In the proposed framework, after obtaining the predicted loading amplitude and percentage of fatigue life, we estimate the RUL for a sample with the S-N curve of that material.
