@@ -81,9 +81,9 @@ For example, 11.7 kN loading amplitude is predicted by the LAC. Therefore, FCC\t
 We calculate accuracy, recall, precision, and F1-measure to evaluate a classifier's performance with the LOGOCV result, and confusion matrices are also presented. Although there exist other evaluation metrics for multi-output problems, we evaluate the aforementioned classifiers in a unified multi-class classification problem with the label defined in Table \ref{table: rul dataset}. Thus, these classifiers are comparable with each other. Since there is not much class imbalance in the dataset, accuracy is an overall indicator for a model's performance. Furthermore, the model's performance on each class is provided by recall, precision and F1-measure. Finally, confusion matrices serve as a visualization for summarizing the detailed result of the testing of a classifier. We let practitioners to decide the importance of each metric as it depends on different scenarios. For example, recall may be more important than precision in classifying highly-fatigued samples due to the consideration of safety.
 
 \subsection{Results}
-This subsection summarizes the results of the developed classifier designs. Table \ref{table: summary class algo} presents the learning algorithms and the number of features determined by the model development procedure in Section \ref{chap: model}. Figure \ref{fig: f1 comparison} depicts the performance of each classifier design by class. Overall, it is noticed that the proposed hierarchical classifier outperforms the other methods discussed in Section \ref{sec: design of classifiers} for every class except Class 6.Therefore, the hierarchical classifier is chosen to demonstrate the RUL estimation algorithm in the following sections.
+This subsection summarizes the results of the developed classifier designs. Table \ref{table: summary class algo} presents the learning algorithms and the number of features determined by the model development procedure in Section \ref{chap: model}. Figure \ref{fig: f1 comparison} depicts the performance of each classifier design by class. It is noticed that the proposed hierarchical classifier outperforms the other methods discussed in Section \ref{sec: design of classifiers} for every class except Class 6. Therefore, the hierarchical classifier is chosen to demonstrate the RUL estimation algorithm in the following sections.
 
-The recall, precision, and F1-score for the hierarchical classifier is illustrated in Fig
+The recall, precision, and F1-score of the hierarchical classifier is reported in Table \ref{table: hier class performance}, and Figure \ref{fig: confu mat hier} presents the detail of the LOGOCV classification result for 405 measurements in the dataset from the hierarchical classifier. It is observed that class 0 has 100\% recall rate and only 2 measurements in class 5 are wrongly classified into class 0, implying that healthy samples are distinguishable from other damaged samples. Similarly, both of class 1 and class 2 have 96.3\% recall rate and few measurements are wrongly predicted as these two classes, showing that the classifier can identify the samples undergone low-amplitude fatigue testing very well. In addition, even though class 3-6 have more misclassified data points, those errors are mostly situated in the same loading amplitude as the true class are, indicating the LAC is able to estimate the loading amplitude that a sample has been applied. With the overall accuracy being 85.2\%, the proposed hierarchical classier achieves a promising result for this application.
 
 \begin{table}[tb]
     \centering
@@ -128,9 +128,49 @@ The recall, precision, and F1-score for the hierarchical classifier is illustrat
     \label{fig: f1 comparison}
 \end{figure}
 
-% \begin{figure}
-%     \includegraphics[width=\linewidth]{fig/}
-% \end{figure}
+\begin{table}[tb]
+    \centering
+    \caption{Classification performance of hierarchical classifier}
+    \label{table: hier class performance}
+    \begin{tabularx}{\textwidth}{
+      >{\centering\arraybackslash}X
+      >{\centering\arraybackslash\hsize=0.5\hsize}X
+      >{\centering\arraybackslash\hsize=0.5\hsize}X
+      >{\centering\arraybackslash\hsize=0.5\hsize}X
+      >{\centering\arraybackslash\hsize=0.5\hsize}X
+    }
+    \toprule
+    %
+    & Precision & Recall & F1-score & No. data \\
+    \midrule
+    %
+    Class 0 \par (0 kN, 0\%) & 0.98 & 0.98 & 0.98 & 81 \\
+    %
+    Class 1 \par (11.7 kN, 33\%) & 0.95 & 0.96 & 0.95 & 54 \\
+    %
+    Class 2 \par (11.7 kN, 67\%) & 0.95 & 0.96 & 0.95 & 54 \\
+    %
+    Class 3 \par (12.7 kN, 33\%) & 0.67 & 0.76 & 0.71 & 54 \\
+    %
+    Class 4 \par (12.7 kN, 67\%) & 0.75 & 0.78 & 0.76 & 54 \\
+    %
+    Class 5 \par (14.7 kN, 33\%) & 0.79 & 0.69 & 0.73 & 54 \\
+    %
+    Class 6 \par (14.7 kN, 67\%) & 0.76 & 0.70 & 0.73 & 54 \\
+    \midrule
+    %
+    Macro Average & 0.83 & 0.83 & 0.83 & 405 \\ 
+    %
+    Weighted Average & 0.84 & 0.84 & 0.84 & 405 \\ 
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{figure}[tb]
+    \includegraphics[width=\linewidth]{fig/hierarchical_confusion_matrix.png}
+    \caption{Confusion matrix of hierarchical classifier for cross-validation}
+    \label{fig: confu mat hier}
+\end{figure}
 
 
 \section{RUL estimation with a S-N curve}
@@ -175,7 +215,7 @@ A S-N curve serves as a look-up table for linking the classifier's predictions t
 \end{enumerate}
 
 \subsection{Examples}
-In this subsection, we demonstrate two examples of the RUL estimation based on the proposed framework. Because the true fatigue life of the testing samples in the interrupted fatigue testing data is not available, we do not evaluate the accuracy quantitatively in this stage. Instead, the estimated 90\% confidence intervals of the RUL for specimen A and B are presented in Table X and X.
+In this subsection, we demonstrate two examples of the RUL estimation based on the proposed framework. Because the true fatigue life of the testing samples in the interrupted fatigue testing data is not available, we cannot calculate the error of the RUL prediction for this stage. Instead, the estimated 90\% confidence intervals of the RUL for specimen A and B are presented in Table X and X.
 
 \section{Discussion}
 One advantage of using the S-N curve to estimate RUL is that it can be quickly adopted to those materials whose S-N curve has constructed, which is common in the industry.
