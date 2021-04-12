@@ -28,9 +28,9 @@ Loading amplitude is another target variable to be considered because loading co
       >{\centering\arraybackslash\hsize=0.6\hsize}X|
       >{\centering\arraybackslash}X
     }\hline
-      Specimen ID & Measurement Locations & Number of Repeated Measurements & Label (amplitude, percent of fatigue life) \\
+      Specimen ID & Number of Measurement Locations & Number of Repeated Measurements & Label (amplitude, percent of fatigue life) \\
       \hline
-          1&\multirow{15}{*}{$1\sim 9$}&\multirow{15}{*}{3}&\multirow{2}{*}{Class 1 (11.7 kN, 33\%)}\\
+          1&\multirow{15}{*}{9}&\multirow{15}{*}{3}&\multirow{2}{*}{Class 1 (11.7 kN, 33\%)}\\
           2& & & \\
           \cline{1-1}\cline{4-4}
           3& & &\multirow{2}{*}{Class 2 (11.7 kN, 67\%)}\\
@@ -144,24 +144,24 @@ The recall, precision, and F1-score of the hierarchical classifier is reported i
     & Precision & Recall & F1-score & No. data \\
     \midrule
     %
-    Class 0 \par (0 kN, 0\%) & 0.98 & 0.98 & 0.98 & 81 \\
+    Class 0 \par (0 kN, 0\%) & 0.98 & 1.00 & 0.99 & 81 \\
     %
-    Class 1 \par (11.7 kN, 33\%) & 0.95 & 0.96 & 0.95 & 54 \\
+    Class 1 \par (11.7 kN, 33\%) & 0.96 & 0.96 & 0.96 & 54 \\
     %
     Class 2 \par (11.7 kN, 67\%) & 0.95 & 0.96 & 0.95 & 54 \\
     %
-    Class 3 \par (12.7 kN, 33\%) & 0.67 & 0.76 & 0.71 & 54 \\
+    Class 3 \par (12.7 kN, 33\%) & 0.71 & 0.76 & 0.73 & 54 \\
     %
-    Class 4 \par (12.7 kN, 67\%) & 0.75 & 0.78 & 0.76 & 54 \\
+    Class 4 \par (12.7 kN, 67\%) & 0.74 & 0.80 & 0.77 & 54 \\
     %
-    Class 5 \par (14.7 kN, 33\%) & 0.79 & 0.69 & 0.73 & 54 \\
+    Class 5 \par (14.7 kN, 33\%) & 0.77 & 0.69 & 0.73 & 54 \\
     %
-    Class 6 \par (14.7 kN, 67\%) & 0.76 & 0.70 & 0.73 & 54 \\
+    Class 6 \par (14.7 kN, 67\%) & 0.80 & 0.72 & 0.76 & 54 \\
     \midrule
     %
-    Macro Average & 0.83 & 0.83 & 0.83 & 405 \\ 
+    Macro Average & 0.84 & 0.84 & 0.84 & 405 \\ 
     %
-    Weighted Average & 0.84 & 0.84 & 0.84 & 405 \\ 
+    Weighted Average & 0.85 & 0.85 & 0.85 & 405 \\ 
     \bottomrule
     \end{tabularx}
 \end{table}
@@ -216,6 +216,39 @@ A S-N curve serves as a look-up table for linking the classifier's predictions t
 
 \subsection{Examples}
 In this subsection, we demonstrate two examples of the RUL estimation based on the proposed framework. Because the true fatigue life of the testing samples in the interrupted fatigue testing data is not available, we cannot calculate the error of the RUL prediction for this stage. Instead, the estimated 90\% confidence intervals of the RUL for specimen A and B are presented in Table X and X.
+
+
+\begin{sidewaystable}
+    
+    \caption{RUL estimation for specimen 5}
+    \label{table: rul 5}
+    \footnotesize{
+    \textit{Specimen information} \\
+    True label: Class 3 (12.7 kN, 33\% fatigue life) \\
+    True number of cycles: 90011 cycles \\
+    Fatigue life from S-N curve: 342110 cycles \\
+    RUL calculated by true number of cycles: 252099 12.7 kN cycles \\}
+    \begin{tabularx}{\textwidth}{*{10}{
+        >{\centering\arraybackslash}X}
+      }
+      \toprule
+      %
+      & \multicolumn{9}{c}{Measurement Location} \\
+      \cmidrule(lr){2-10}
+      Replicate & 5a & 4a & 3a & 2a & 1 & 2 & 3 & 4 & 5 \\
+      \midrule
+      %
+      1 & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) & \textbf{[57145, 170928] 12.7kN (4)} & \textbf{[57145, 170928] 12.7kN (4)} & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) & \textbf{[17340, 50523] 14.7kN (6)} \\
+      2 & \textbf{[57145, 170928] 12.7kN (4)} & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) & \textbf{[57145, 170928] 12.7kN (4)} & \textbf{[57145, 170928] 12.7kN (4)} & \textbf{[17340, 50523] 14.7kN (6)} & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) \\
+      3 & [114290, 341856] 12.7 kN (3) & \textbf{[57145, 170928] 12.7kN (4)} & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) & \textbf{\textbf{[57145, 170928] 12.7kN (4)}} & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) & [114290, 341856] 12.7 kN (3) \\
+      \midrule
+      \bottomrule
+    \end{tabularx}
+    \footnotesize{90\% confidence interval in square brackets\\
+    Predicted class in parentheses\\
+    Bold text indicates misclassified measurements}
+    
+\end{sidewaystable}
 
 \section{Discussion}
 One advantage of using the S-N curve to estimate RUL is that it can be quickly adopted to those materials whose S-N curve has constructed, which is common in the industry.
