@@ -98,24 +98,24 @@ The recall, precision, and F1-score of the hierarchical classifier is reported i
       >{\centering\arraybackslash}X
     }
     \toprule
-      Design of Classifiers & Algorithm & No. Selected Features & Macro Average F1-score \\
+      Design of Classifiers & Algorithm & No. Selected Features & accuracy (\%) \\
       \midrule
-      \multirow{4}{*}{Multi-class} & & \multirow{4}{*}{35} & \multirow{4}{*}{0.75} \\
+      \multirow{4}{*}{Multi-class} & & \multirow{4}{*}{35} & \multirow{4}{*}{77.3} \\
       & Logistic & & \\
       & regression & & \\
       & & & \\
       % 
-      \multirow{4}{*}{Multi-output} & & & \multirow{4}{*}{0.77} \\
+      \multirow{4}{*}{Multi-output} & & & \multirow{4}{*}{78.8} \\
       & Logistic & 59 (LAC) & \\
       & regression & 51 (FCC) & \\ 
       & & & \\
       %
-      \multirow{4}{*}{Two-stage} & & & \multirow{4}{*}{0.80} \\
+      \multirow{4}{*}{Two-stage} & & & \multirow{4}{*}{81.5} \\
       & Logistic & 59 (LAC) & \\
       & regression & 51 (FCC\textsubscript{two-stage}) & \\
       & & & \\
       %
-      \multirow{4}{*}{Hierarchical} &  & 59 (LAC) & \multirow{4}{*}{0.83} \\
+      \multirow{4}{*}{Hierarchical} &  & 59 (LAC) & \multirow{4}{*}{85.3} \\
       & Logistic & 10 (FCC\textsubscript{11.7 kN}) & \\
       & regression & 40 (FCC\textsubscript{12.7 kN}) & \\
       &  & 6 (FCC\textsubscript{14.7 kN}) & \\
@@ -286,9 +286,15 @@ In Table \ref{table: rul 3}, the 95\% confidence intervals successfully cover a 
 
 
 \section{Discussion}
-Continuous variable more data needed
+This section discusses several findings and limitations of the RUL prediction framework including 
+\begin{enumerate*}[label=\itshape\alph*\upshape)]
+    \item impacts of classifier designs and the structure of data, and
+    \item Decision making based on multiple measurements.
+\end{enumerate*}
+Other take ways and issues are mentioned in Chapter \ref{chap: concl}.
 
-Other classification algorithm
+\subsection{impacts of classifier designs and the structure of data}
+As presented in Section \ref{sec: design of classifiers}, a major problem can be decomposed into several sub-tasks by adopting a divide-and-conquer manner and the error rates can be reduced. In Table \ref{table: summary class algo}, one can observe that the prediction accuracy increases from 77.3\% (multi-class classifier) to 85.3\% (hierarchical classifier) as we split the meta classification problem into smaller classification tasks by exploiting the structure of the data. Nevertheless, the caveat is that introducing more classifiers for subtasks can increase the risk of overfitting the small dataset. The trade off between the generalizability and the performance of a model and other classifier designs are left for further investigation.
 
-
-One advantage of using the S-N curve to estimate RUL is that it can be quickly adopted to those materials whose S-N curve has constructed, which is common in the industry.
+\subsection{Decision making based on multiple measurements}
+In the design of experiments, the ultrasonic measurements were conducted at different locations across the specimen and at one location repeatedly, offering opportunities for practitioners to make decision based on the information from the spatial and repeated measurements. For example, one can determine the RUL of a specimen by selecting the minimum, average, or mode RUL among the three repeated measurements at one location. Furthermore, the RUL of an entire specimen can be evaluated by similar or even more sophisticated approaches across multiple locations to decide the usability of a component. These rules are worth investigating in the real application scenarios.
