@@ -1,13 +1,13 @@
 \chapter{Residual Stress and FWHM Prediction}
 \label{chap: reg}
 
-Because of the efficiency of ultrasonic testings in inspection area and cost, we explore the potential of using ultrasonic testings to measure quantities of interest which is originally obtained from XRD analysis. In this chapter, we present regression models for estimating the residual stress and the FWHM of XRD peaks on fatigue samples based on the ultrasonic measurements. 
+Because of the efficiency of ultrasonic testings in terms of inspection area and cost, we explore the potential of using ultrasonic testings to measure quantities of interest, residual stress (RS) and full width at half maximum (FWHM), which are originally obtained from XRD analysis. In this chapter, we present regression models for estimating the RS and the FWHM of XRD peaks on fatigue damaged samples based on the ultrasonic measurements. 
 
 \section{Problem formulation}
 Following the same manner in Section \ref{sec: rul prob formulation}, we first translate the prediction tasks into ML regression problems based on the available dataset.
 
 \subsection{Dataset}
-The dataset for predicting residual stress and FWHM is composed of the XRD results and ultrasonic measurements. To obtain the residual stress and FWHM, the XRD analysis were performed on a subset of samples in the RUL dataset in Table \ref{table: rul dataset}, containing 8 specimens and 3 measurement locations for each specimen. Table \ref{table: rs dataset} and \ref{table: fwhm dataset} are the summary of the RS and FWHM dataset, respectively. It is worth mentioning that Specimen 7's relatively low FWHM values could indicate that there are microcrack initiations. Hence, we exclude samples from Specimen 7 in the FWHM prediction task.
+The dataset for predicting RS and FWHM is composed of the XRD results and ultrasonic measurements. To obtain the RS and FWHM, the XRD analysis were performed on a subset of samples in the RUL dataset in Table \ref{table: rul dataset}, containing 8 specimens and 3 measurement locations for each specimen. Table \ref{table: rs dataset} and \ref{table: fwhm dataset} are the summary of the RS and FWHM dataset, respectively. It is worth mentioning that specimen 7's relatively low FWHM values could indicate that there are microcrack initiations, and the discussion about specimen 7 is presented in Section \ref{sec: reg discussion}.
 
 \begin{table}[tb]
     \centering
@@ -68,22 +68,98 @@ The dataset for predicting residual stress and FWHM is composed of the XRD resul
 \end{table}
 
 \subsection{Target variables}
-RS is known to influence the fatigue behaviors including crack initiation and propagation. FWHM is also an indicator for evaluating crack propagation. As a result, accurately predicting RS and FWHM based on ultrasonic measurements is beneficial to assist the fatigue level estimation and thus becomes the outcome of interest in this chapter. Here, the problem is formulated as two regression tasks:
+RS and FWHM are the target variables in this chapter. RS is known to influence the fatigue behaviors including crack initiation and propagation. FWHM is also an indicator for evaluating crack propagation. As a result, accurately predicting RS and FWHM based on ultrasonic measurements is beneficial to assist the fatigue level estimation. Here, the problem is formulated as two regression tasks separately:
 \begin{enumerate*}[label=\itshape\alph*\upshape)]
-    \item an univariate regression with RS as a target variable, and
-    \item an univariate regression with FWHM as a target variable.
+    \item an univariate regression with RS as the target variable, and
+    \item an univariate regression with FWHM as the target variable.
 \end{enumerate*}
 
 
 \section{Residual stress prediction}
 \label{sec: rs prediction}
-In this section, the regression model for predicting RS based on ultrasonic signals is developed by following the procedure in Chapter \ref{chap: model}. Mean absolute error (MAE), root mean squared error(RMSE), and mean absolute percentage error (MAPE) are used to asses the LOGOCV results. Table XXX compares the performance of ... 
+A regression model, RFECV-SVM\textsubscript{RS}, for predicting RS based on ultrasonic signals is developed by following the procedure in Chapter \ref{chap: model}. Besides, we also compare the RFECV-SVM\textsubscript{RS} model with other approaches such as Lasso regression, linear regression with top 5 features from Lasso regression, and random forest, as shown in Table \ref{table: summary rs model}. Root mean squared error (RMSE), and mean absolute percentage error (MAPE) are used to asses the model performance with the LOGOCV results. In this task, the RFECV-SVM model performs the best with the MAPE equal 4.73\%. Figure \ref{fig: rs prediction} illustrates the RFECV-SVM\textsubscript{RS} model prediction by showing the actual and predicted RS, where a perfect model should follow the black line. It is observed that in most groups, at least one prediction among the three repeated measurements (three predictions for the same actual residual stress) is close to the ideal prediction, and the MAPEs for each group is mostly below 10\%.
 
-The best performing model for RS prediction is ... and Figure XXX displays the overall model performance by showing the actual and predicted RS, where a perfect model should follow the black line.
+\begin{table}[tb]
+    \centering
+    \caption{Summary of regression models for residual stress estimation and model performance}
+    \label{table: summary rs model}
+    \begin{tabularx}{\textwidth}{
+      >{\centering\arraybackslash}X
+      >{\centering\arraybackslash}X
+      >{\centering\arraybackslash\hsize=0.8\hsize}X
+      >{\centering\arraybackslash\hsize=0.8\hsize}X
+    }
+    \toprule
+    \multirow{2}{*}{Method}  & \multirow{2}{*}{\parbox{\linewidth}{\centering No. Selected \\ Features}} & \multicolumn{2}{c}{LOGOCV Test} \\
+    \cmidrule(lr){3-4}
+    & & RMSE (MPa) & MAPE (\%) \\
+    \midrule
+    %
+    Lasso regression & 37 & 5.90 & 8.71 \\
+    Linear regression & 5 & 4.92 & 7.54 \\
+    Random forest & 283 & 7.74 & 12.85 \\
+    RFECV-SVM & 29 & 3.24 & 4.73 \\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.8\linewidth]{fig/residual_stress_predict_vs_true.png}
+  \caption{Scatter plot of actual vs predicted residual stress by RFECV-SVM}
+  \label{fig: rs prediction}
+\end{figure}
 
 \section{FWHM prediction}
-Similarly, the FWHM prediction model is built based on the procedure in Chapter \ref{chap: model} and is evaluated with the same metrics in Section \ref{sec: rs prediction}. Table XXX is the comparison of model performance for candidate learning algorithms.
+Similarly, the FWHM prediction model, RFECV-SVM\textsubscript{FWHM}, is built based on the procedure in Chapter \ref{chap: model} and is evaluated with the same metrics in Section \ref{sec: rs prediction}. Table \ref{table: summary fwhm model} is the comparison of the RFECV-SVM\textsubscript{FWHM} with other regression methods. It is worth mentioning that the linear regression model with top 5 features selected from Lasso regression achieves a 1.89\% MAPE, performing slightly better than the RFECV-SVM\textsubscript{FWHM} in terms of RMSE and MAPE, and Figure \ref{fig: fwhm prediction lr} and \ref{fig: fwhm prediction svm} illustrates the predictions of these two models. One can observe that the predictions of the small FWHM values from specimen 7 by the RFECV-SVM\textsubscript{FWHM} significantly deviates from the ideal predictions; nevertheless, the linear regression model is able to make close predictions. As mentioned earlier, we surmise that specimen 7 has developed cracks and the difference in the model performance led us to have a further investigation about specimen 7 in Section \ref{sec: reg discussion}. Before having further analysis, by excluding specimen 7, we can conclude that both methods achieve a good performance in predicting FWHM with errors less than 2\%.
 
-XXX achieves the best prediction result and its model performance is visualized in Figure XXX.
+\begin{table}[tb]
+  \centering
+  \caption{Summary of regression models for FWHM estimation and model performance}
+  \label{table: summary fwhm model}
+  \begin{tabularx}{\textwidth}{
+    >{\centering\arraybackslash}X
+    >{\centering\arraybackslash}X
+    >{\centering\arraybackslash\hsize=0.8\hsize}X
+    >{\centering\arraybackslash\hsize=0.8\hsize}X
+  }
+  \toprule
+  \multirow{2}{*}{Method}  & \multirow{2}{*}{\parbox{\linewidth}{\centering No. Selected \\ Features}} & \multicolumn{2}{c}{LOGOCV Test} \\
+  \cmidrule(lr){3-4}
+  & & RMSE (MPa) & MAPE (\%) \\
+  \midrule
+  %
+  Lasso regression & 20 & 0.0081 & 2.40 \\
+  Linear regression & 5 & 0.0056 & 1.62 \\
+  Random forest & 283 & 0.0099 & 2.81 \\
+  RFECV-SVM & 7 & 0.0063 & 1.89 \\
+  \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{figure}[tb]
+  \centering
+  \begin{subfigure}[t]{\linewidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/fwhm_predict_vs_true_lr.png}
+    \caption{Linear regression}
+    \label{fig: fwhm prediction lr}
+  \end{subfigure}
+  \begin{subfigure}[t]{\linewidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/fwhm_predict_vs_true_svm.png}
+    \caption{RFECV-SVM}
+    \label{fig: fwhm prediction svm}
+  \end{subfigure}
+
+  \caption{Scatter plot of actual vs predicted FWHM}
+  \label{fig: fwhm prediction}
+\end{figure}
 
 \section{Discussion}
+\label{sec: reg discussion}
+In this section, since we conjecture that specimen 7 has developed cracks based on the relatively small FWHM values, the potential of using our ultrasonic technology to detect cracks is discussed.
+
+\subsection{Crack detection through LU and NLU measurements}
+To investigate whether our ultrasonic technology can detect cracks or not, we first assume specimen 7 is cracked and the differences in ultrasonic signals between specimen 7 and other specimens are resulted from the existence of cracks.
+, specimen 7's and specimen 8's probability distributions of selected features are displayed in Figure XXX.
