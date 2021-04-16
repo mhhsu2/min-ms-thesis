@@ -10,7 +10,14 @@ This chapter introduces a model development procedure used in both classificatio
     \item model validation, and
     \item hyperparameter tuning,
 \end{enumerate*}
-as shown in Figure .
+as shown in Figure \ref{fig: model development}.
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=\linewidth]{fig/model_development.png}
+    \caption{Overview of the ML model development}
+    \label{fig: model development}
+\end{figure}
 
 \section{Signal pre-processing}
 It is essential to reduce noises and extract regions of interest in signals by signal processing before we perform other analyses. Figure presents this process. First, DC bias was removed by subtracting the mean amplitude of a signal to prevent models from fitting on bias. Second, considering the computational cost from the high resolution data, we choose to downsample the ultrasonic signals. Third, we define the region or interest as the interval which contains the ultrasonic signal responses, and thus the other parts of a signal are discarded so that redundant information is not included.
@@ -64,7 +71,14 @@ We concatenate features from LU and NLU testing together, and thus the feature p
 \section{Feature selection}
 Feature selection aims to remove features that are redundant. Irrelevant features are common to see when we construct features without fully understanding a physical process. For example, the relationship between fatigue mechanism and ultrasonic responses. By including only the best subset of features for a prediction task, feature selection helps develop robust models against overfitting and improve model generalizability. There exists various feature selection techniques which can be mainly classified into three categories: filter methods, wrapper methods, and embedded methods. Each of these methods has its advantages, disadvantages, and suitable application scenarios.
 
-In the model development pipeline, we adopted a wrapper method called Recursive Feature Elimination with Cross-validation (RFECV) to obtain the optimal feature subset that achieves the best predictive performance in multiple training/test data splits for a single model. Figure X shows the RFECV algorithm. First, recursive feature elimination (RFE) starts from a set with all available features and eliminate $k$ features step by step based on the feature ranking with regressors/classifiers until the predetermined number of features $n$ is reached. Nevertheless, the best number of features to select $n^*$ is not determined. To find out $n^*$ while alleviating the problem of overfitting, cross-validation (CV), a statistical model validation technique, is used along with RFE. CV partitions a dataset into training set and validation set in each fold. A model is evaluated multiple times with different partitions, and $n^*$ is determined by the overall validation results. Then, RFE selects the optimal $n^*$ features from the feature pool. We choose 5-fold classification in this feature selection procedure to avoid adding too much computation cost due to the fact that RFE is already computationally expensive.
+In the model development pipeline, we adopted a wrapper method, recursive feature Elimination with cross-validation (RFECV) to obtain the optimal feature subset that achieves the best predictive performance in multiple training/test data splits for a single model. The RFECV algorithm is shown as a part of Figure \ref{fig: rfecv logocv}. First, recursive feature elimination (RFE) starts from a set with all available features and eliminate $k$ features step by step based on the feature ranking with regressors/classifiers until the predetermined number of features $n$ is reached. Nevertheless, the best number of features to select $n^*$ is not determined. To find out $n^*$ while alleviating the problem of overfitting, cross-validation (CV), a statistical model validation technique, is used along with RFE. CV partitions a dataset into training set and validation set in each fold. A model is evaluated multiple times with different partitions, and $n^*$ is determined by the overall validation results. Then, RFE selects the optimal $n^*$ features from the feature pool. We choose 5-fold classification in this feature selection procedure to avoid adding too much computation cost due to the fact that RFE is already computationally expensive.
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/rfecv.png}
+    \caption{Flowchart for feature selection and hyperparameter tuning}
+    \label{fig: rfecv logocv}
+\end{figure}
 
 \section{Model training and validation}
 \label{sec: model train and val}
