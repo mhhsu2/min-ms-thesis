@@ -36,7 +36,27 @@ Given that physics modeling is built on theories or comprehensive experiment stu
         v = \frac{2D}{\Delta t}
         \label{eq: wave velocity}
     \end{equation}
-    where wave velocity is denoted by $v$, and $D$ is the thickness of a specimen. $\Delta t$ is the time difference between the actuation pulse and the response signal. Notice that, in our LU testing setup, one transducer severs as both a transmitter and a receiver. Thus, the excitation signal travels $2D$ and the phase is changed $180^{\circ} $ when received.
+    where wave velocity is denoted by $v$, and $D$ is the thickness of a specimen. $\Delta t$ is the time difference between the actuation pulse and the response signal. Notice that, in our LU testing setup, one transducer severs as both a transmitter and a receiver. Thus, the excitation signal travels $2D$ and the phase is changed $180^{\circ} $ when received, as illustrated in Figure \ref{fig: wave speed}.
+
+    \begin{figure}[tb]
+        \centering
+        \begin{subfigure}[t]{0.49\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{fig/wave_speed.png}
+            \caption{Wave speeds from an LU signal}
+            \label{fig: wave speed}
+        \end{subfigure}
+        \begin{subfigure}[t]{0.49\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{fig/beta.png}
+            \caption{Nonlinear acoustic parameter from an NLU signal after FFT}
+            \label{fig: beta}
+        \end{subfigure}
+
+        \caption{Calculation of physics-based features}
+    \end{figure}
+
+    
 
     \item Nonlinear acoustic parameter $\beta$
     
@@ -46,25 +66,32 @@ Given that physics modeling is built on theories or comprehensive experiment stu
         \beta = \frac{A_2}{A_1}
         \label{eq: beta}
     \end{equation}
-    where $A_1$, $A_2$ is the FFT amplitude of the fundamental wave and the second-order harmonic wave, respectively. \textcolor{red}{Figures for illustrating the calculations?}
+    where $A_1$, $A_2$ is the FFT amplitude of the fundamental wave and the second-order harmonic wave, respectively. Figure \ref{fig: beta} displays the the fundamental and harmonic frequency and their amplitude in the frequency domain.
 \end{itemize}
 
 \subsection{Data-driven features}
 The physics-based features alone, however, are not enough to capture all of the information from the LU and NLU signals. As a result, a large number of features engineered from the time domain, frequency domain, and time-frequency domain of ultrasonic measurements are added to the feature pool.
 
 \begin{itemize}
-    \item time domain features
+    \item Time domain features
     
     The time domain features are peak amplitudes, ratios between peak amplitudes, and components from principal component analysis (PCA) and independent component analysis (ICA). Statistics in the time domain such as median, quantiles, variance, skewness, and kurtosis are also included. Besides, wave duration, wave energy, and the ratios between these quantities are calculated from the envelope analysis of an NLU signal.
 
-    \item frequency domain features
+    \item Frequency domain features
     
     Frequency domain analysis offers information that is not presented in the time domain. This information is especially valuable for periodic signals such as ultrasonic measurements. Thus, after applying FFT, peak amplitudes, ratios between peak amplitudes, peak frequencies, frequency centroid, and frequency variance in FFT spectrum are extracted as the frequency domain features.
 
     \item Time-frequency domain features
     
-    Ultrasonic signals are usually not stationary, i.e., frequency changes in time, because of the interaction between ultrasonic waves and discontinuities within the material. Therefore, time-frequency analysis is needed to describe the phenomena. Discrete wavelet transform (DWT) is adopted to decompose ultrasonic measurements into several frequency bands \textcolor{red}{as shown in Figure XXX}. Then, statistics such as mean, median, kurtosis, and skewness are recorded for each frequency band.
+    Ultrasonic signals are usually not stationary, i.e., frequency changes in time, because of the interaction between ultrasonic waves and discontinuities within the material. Therefore, time-frequency analysis is needed to describe the phenomena. Discrete wavelet transform (DWT) is adopted to decompose ultrasonic measurements into several frequency bands, as an example in Figure \ref{fig: dwt decomposition}. Then, statistics such as mean, median, kurtosis, and skewness are recorded for each frequency band.
 \end{itemize}
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[height=\linewidth]{fig/dwt_decomposition.png}
+    \caption{DWT decomposition of an NLU signal}
+    \label{fig: dwt decomposition}
+\end{figure}
 
 We concatenate features from LU and NLU signals together, and the feature pool contains 283 features in total. A list of candidate features for LU and NLU signal profiles is displayed in \textcolor{red}{Table XXX}
 

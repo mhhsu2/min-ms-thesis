@@ -71,6 +71,85 @@
 % full names. IEEEtran.bst will automatically abbreviate when it
 % encounters full names.
 
+% references for the IEEEtran.bst documentation
+% the distribution site for IEEEtran.bst
+@electronic{IEEEexample:shellCTANpage,
+  author = {Michael Shell},
+  title  = {{IEEE}tran Homepage on {CTAN}},
+  url    = {http://www.ctan.org/tex-archive/macros/latex/contrib/supported/IEEEtran/},
+  year   = {2002}
+};
+% the IEEE website
+% sort key is needed for sorting styles
+@electronic{IEEEexample:IEEEwebsite,
+  title = {The {IEEE} Website},
+  url   = {http://www.ieee.org/},
+  year  = {2002},
+  key   = {IEEE}
+};
+% The BibTeX user's guide.
+% The filename could have been put in the URL instead. But, there might
+% be other interesting things for the user in the same directory - and
+% the filename might change before the directory that contains it.
+@electronic{IEEEexample:bibtexuser,
+  author       = {Oren Patashnik},
+  title        = {{\BibTeX}ing},
+  howpublished = {{btxdoc.pdf}},
+  url          = {http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/},
+  month        = feb,
+  year         = {1988}
+};
+% The BibTeX style designer's guide.
+@electronic{IEEEexample:bibtexdesign,
+  author       = {Oren Patashnik},
+  title        = {Designing {\BibTeX\ } Styles},
+  howpublished = {{btxhak.pdf}},
+  url          = {http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/},
+  month        = feb,
+  year         = {1988}
+};
+% The BibTeX Tips and FAQ guide.
+@electronic{IEEEexample:bibtexFAQ,
+  author       = {David Hoadley and Michael Shell},
+  title        = {{\BibTeX}\ Tips and {FAQ}},
+  howpublished = {{btxFAQ.txt}},
+  url          = {http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/},
+  month        = oct,
+  year         = {2002}
+};
+% TeX User Group Bibliography Archive
+@electronic{IEEEexample:beebe_archive,
+  author = {Nelson H. F. Beebe},
+  title  = {{\TeX\ }User Group Bibliography Archive},
+  url    = {http://www.math.utah.edu:8080/pub/tex/bib/index-table.html},
+  month  = may,
+  year   = {2002}
+};
+% The url.sty package.
+@electronic{IEEEexample:urlsty,
+  author = {Donald Arseneau},
+  title  = {The url.sty package},
+  url    = {http://www.ctan.org/tex-archive/macros/latex/contrib/other/misc/},
+  month  = mar,
+  year   = {1999}
+};
+% The hyperref.sty package.
+@electronic{IEEEexample:hyperrefsty,
+  author = {Sebastian Rahtz and Heiko Oberdiek},
+  title  = {The hyperref.sty package},
+  url    = {http://www.ctan.org/tex-archive/macros/latex/contrib/supported/hyperref/},
+  month  = jul,
+  year   = {2002}
+};
+% The Babel package.
+@electronic{IEEEexample:babel,
+  author = {Johannes Braams},
+  title  = {The {Babel} package},
+  url    = {http://www.ctan.org/tex-archive/macros/latex/required/babel/},
+  month  = feb,
+  year   = {2001}
+};
+
 
 @article{fatigue-review-Santecchia2016,
   author    = {Santecchia, E.
@@ -176,6 +255,37 @@ and Spigarelli, S.},
   eprint   = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/adma.201405207},
   abstract = {Magnetic levitation (MagLev) enables rapid and non-destructive quality control of plastic parts. The feasibility of MagLev as a method to: i) rapidly assess injection-molded plastic parts for defects during process optimization, ii) monitor the degradation of plastics after exposure to harsh environmental conditions, and iii) detect counterfeit polymers by density is demonstrated.},
   year     = {2015}
+}
+
+# Acoustic emission
+@article{nde-ae-CHAI2017101,
+  title    = {Acoustic emission studies for characterization of fatigue crack growth in 316LN stainless steel and welds},
+  journal  = {Applied Acoustics},
+  volume   = {126},
+  pages    = {101-113},
+  year     = {2017},
+  issn     = {0003-682X},
+  doi      = {https://doi.org/10.1016/j.apacoust.2017.05.014},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0003682X17304577},
+  author   = {Mengyu Chai and Jin Zhang and Zaoxiao Zhang and Quan Duan and Guangxu Cheng},
+  keywords = {Acoustic emission, Fatigue crack growth, K-means clustering, 316LN stainless steel},
+  abstract = {This paper focuses on the study of the stages IIa and IIb in Paris region of fatigue crack growth (FCG) for base metal and weld specimens of 316LN stainless steel (SS) by using acoustic emission (AE) technique. Meanwhile, the fatigue properties and AE characteristics were analyzed based on the K-means clustering method and fractographic observations. The results show that 316 SS weld exhibits a higher resistance to crack growth than that of base metal due to the deflection of crack path under mixed loading mode. The transition from stage IIa to IIb in the Paris region can be identified by the change of slope in AE cumulative count and cumulative energy vs. ΔK, which otherwise is not feasible from da/dN vs. ΔK plots. The AE signal characteristics of different source mechanisms such as ductile crack growth, plastic deformation within cyclic plastic zone and shear crack growth are significantly different in the two sub-stages during fatigue. The results suggest that AE technique is sensitive to the identification of the presences of stage IIa, stage IIb in the Paris region and the shear crack growth during FCG.}
+}
+
+# Electrical resistance
+@article{nde-electrical-resistance-SUN2007,
+  author   = {SUN, B. and YANG, L. and GUO, Y.},
+  title    = {A high-cycle fatigue accumulation model based on electrical resistance for structural steels},
+  journal  = {Fatigue \& Fracture of Engineering Materials \& Structures},
+  volume   = {30},
+  number   = {11},
+  pages    = {1052-1062},
+  keywords = {cumulative fatigue damage, fatigue fracture, lifetime prediction, structural steel},
+  doi      = {https://doi.org/10.1111/j.1460-2695.2007.01175.x},
+  url      = {https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1460-2695.2007.01175.x},
+  eprint   = {https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1460-2695.2007.01175.x},
+  abstract = {ABSTRACT For high-cycle fatigue of metals, the DC electrical resistance is a more sensitive parameter to the initiation of micro-cracks during the irreversible fatigue damage accumulation process. This implies that the electrical resistance is a suitable parameter that can be consistent with the fatigue damage physical mechanism. The relation between the ratio of electrical resistance changes and the cyclic fraction of the fatigue specimen may reasonably represent deterioration in mechanical properties of structural steels during the high-cycle fatigue process. The high-cycle fatigue damage accumulation model based on electrical resistance for structural steels was proposed. The model was verified by some experimental data for three structural steels; normalized 45C steel, 20 Mn steel and 16 Mn steel, and good agreement was obtained. The corresponding fatigue lifetime on the basis of the electrical resistance model was also performed. The results show that the approach to fatigue lifetime prediction and failure based on the electrical resistance is a good non-destructive technique.},
+  year     = {2007}
 }
 
 # Linear ultrasound
