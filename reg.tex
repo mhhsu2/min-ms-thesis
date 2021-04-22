@@ -14,16 +14,16 @@ The dataset for predicting residual stress and FWHM is composed of the XRD resul
     \caption{Summary of the residual stress prediction dataset}
     \label{table: rs dataset}
     \begin{tabularx}{\textwidth}{
-      >{\centering\arraybackslash}X|
-      >{\centering\arraybackslash}X|
-      >{\centering\arraybackslash}X|
+      >{\centering\arraybackslash}X
+      >{\centering\arraybackslash}X
+      >{\centering\arraybackslash}X
       >{\centering\arraybackslash}X
     }
-    \hline
-    & \multicolumn{3}{c}{Residual Stress (MPa)}\\
-    \hline
-      Specimen ID & Location 1 & Location 2 & Location 3\\
-      \hline
+    \toprule
+    Specimen ID & \multicolumn{3}{c}{Residual Stress (MPa)}\\
+    \cmidrule(lr){2-4}
+       & Location 1 & Location 2 & Location 3\\
+      \midrule
       2 & -61.7 & -75.6 & -80.2 \\
       4 & -59.9 & -69.6 & -76.6 \\
       6 & -60.3 & -75.3 & -79.6 \\
@@ -32,7 +32,7 @@ The dataset for predicting residual stress and FWHM is composed of the XRD resul
       10 & -43.3 & -47.0 & -50.8 \\
       12 & -38.8 & -43.2 & -50.0 \\
       14 & -79 & -76.7 & -85.7 \\
-      \hline
+      \bottomrule
     \end{tabularx}
 
     \footnotesize{The negative sign indicates the compressive residual stresses.}
@@ -44,16 +44,16 @@ The dataset for predicting residual stress and FWHM is composed of the XRD resul
     \caption{Summary of the FWHM prediction dataset}
     \label{table: fwhm dataset}
     \begin{tabularx}{\textwidth}{
-      >{\centering\arraybackslash}X|
-      >{\centering\arraybackslash}X|
-      >{\centering\arraybackslash}X|
+      >{\centering\arraybackslash}X
+      >{\centering\arraybackslash}X
+      >{\centering\arraybackslash}X
       >{\centering\arraybackslash}X
     }
-    \hline
-    & \multicolumn{3}{c}{FWHM ($^{\circ}$)}\\
-    \hline
-      Specimen ID & Location 1 & Location 2 & Location 3\\
-      \hline
+    \toprule
+    Specimen ID & \multicolumn{3}{c}{FWHM ($^{\circ}$)}\\
+    \cmidrule(lr){2-4}
+       & Location 1 & Location 2 & Location 3\\
+      \midrule
       2 & 0.354 & 0.353 & 0.355 \\
       4 & 0.350 & 0.354 & 0.353 \\
       6 & 0.358 & 0.359 & 0.363 \\
@@ -62,7 +62,7 @@ The dataset for predicting residual stress and FWHM is composed of the XRD resul
       10 & 0.356 & 0.358 & 0.360 \\
       12 & 0.354 & 0.353 & 0.355 \\
       14 & 0.338 & 0.340 & 0.346 \\
-      \hline
+      \bottomrule
 
     \end{tabularx}
 \end{table}
@@ -97,8 +97,8 @@ A regression model, RFECV-SVM\textsubscript{RS}, for predicting residual stress 
     %
     Lasso regression & 37 & 5.90 & 8.71 \\
     Linear regression & 5 & 4.92 & 7.54 \\
-    Random forest & 283 & 7.74 & 12.85 \\
-    RFECV-SVM & 29 & 3.24 & 4.73 \\
+    Random forest & 191 & 7.74 & 12.85 \\
+    \textbf{RFECV-SVM} & 29 & \textbf{3.24} & \textbf{4.73} \\
     \bottomrule
     \end{tabularx}
 \end{table}
@@ -118,21 +118,21 @@ Similarly, an FWHM prediction model, RFECV-SVM\textsubscript{FWHM}, is built bas
   \caption{Summary of regression models for FWHM prediction and model performance}
   \label{table: summary fwhm model}
   \begin{tabularx}{\textwidth}{
+    >{\centering\arraybackslash\hsize=1.2\hsize}X
     >{\centering\arraybackslash}X
-    >{\centering\arraybackslash}X
-    >{\centering\arraybackslash\hsize=0.8\hsize}X
-    >{\centering\arraybackslash\hsize=0.8\hsize}X
+    >{\centering\arraybackslash\hsize=0.75\hsize}X
+    >{\centering\arraybackslash\hsize=0.75\hsize}X
   }
   \toprule
   \multirow{2}{*}{Method}  & \multirow{2}{*}{\parbox{\linewidth}{\centering No. Selected \\ Features}} & \multicolumn{2}{c}{LOGOCV Test} \\
   \cmidrule(lr){3-4}
-  & & RMSE (\textcolor{red}{unit}) & MAPE (\%) \\
+  & & RMSE ($^{\circ}$) & MAPE (\%) \\
   \midrule
   %
   Lasso regression & 20 & 0.0081 & 2.40 \\
-  Linear regression & 5 & 0.0056 & 1.62 \\
-  Random forest & 283 & 0.0099 & 2.81 \\
-  RFECV-SVM & 7 & 0.0063 & 1.89 \\
+  \textbf{Linear regression} & 5 & \textbf{0.0056} & \textbf{1.62} \\
+  Random forest & 191 & 0.0099 & 2.81 \\
+  \textbf{RFECV-SVM} & 7 & \textbf{0.0063} & \textbf{1.89} \\
   \bottomrule
   \end{tabularx}
 \end{table}

@@ -1,0 +1,79 @@
+\appendix
+\chapter{Extracted Ultrasonic Features}
+\label{app: feature}
+
+\begin{table}[!h]
+    \centering
+    \caption{List of features extracted from LU signal profiles}
+    \label{table: lu feature}
+    \begin{tabularx}{\textwidth}{
+      >{\arraybackslash\hsize=0.45\hsize}X
+      >{\arraybackslash}X
+    }
+      \toprule
+      Feature & Description \\
+      \midrule
+      %
+      wave[n]\_speed & Velocity of LU waves between reflections. $n \in \left[ 1, 3 \right] $  \\
+      wave[n]\_peak\_lu & Peak amplitude of LU signal. $n \in \left[ 1, 4 \right] $ \\
+      peak\_ratio[ab]\_lu & Ratio of peak amplitude a to b of LU signal. $ab \in \left\{ 21, 32, 43 \right\} $ \\
+      wave[n]\_energy\_lu & Energy of LU reflections. $n \in \left[ 1, 4 \right] $ \\
+      %
+      p[n]\_lu & Percentiles of LU signal. $n \in \left\{5, 25, 50, 75, 95 \right\}$ \\
+      mean\_lu & Mean of LU signal \\
+      var\_lu & Variance of LU signal \\
+      sk\_lu & Skewness of LU signal \\
+      kur\_lu & Kurtosis of LU signal \\
+      PC[n]\_lu & Principal component n of LU signal. $n \in \left[ 1, 15 \right]$ \\
+      ICA[n]\_lu & Independent component n of LU signal. $n \in \left[ 1, 10 \right]$ \\
+      %
+      f[n]\_amp & Peak amplitude of FFT spectrum of LU signal. $n \in \left[ 1, 5 \right] $ \\
+      f[n] & Frequency at peaks of FFT spectrum. $n \in \left[ 1, 5 \right] $ \\
+      frequency\_centroid\_lu & Spectral centroid of FFT spectrum of LU signal \\
+      frequency\_variance\_lu & Variance of FFT spectrum of LU signal \\
+      %
+      dwt[n]\_mean\_lu & Mean of DWT coefficients $n$ of LU signal. $n \in \left[ 0, 13 \right] $ \\
+      dwt[n]\_var\_lu & Variance of DWT coefficients $n$ of LU signal. $n \in \left[ 0, 13 \right] $ \\
+      dwt[n]\_sk\_lu & Skewness of DWT coefficients $n$ of LU signal. $n \in \left[ 0, 13 \right] $ \\
+      dwt[n]\_kur\_lu & Kurtosis of DWT coefficients $n$ of LU signal. $n \in \left[ 0, 13 \right] $ \\
+      \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{table}
+    \centering
+    \caption{List of features extracted from NLU signal profiles}
+    \label{table: nlu feature}
+    \begin{tabularx}{\textwidth}{
+      >{\arraybackslash\hsize=0.5\hsize}X
+      >{\arraybackslash}X
+    }
+      \toprule
+      Feature & Description \\
+      \midrule
+      %
+      beta & Nonlinear acoustic parameter of NLU signal \\
+      wave[n]\_peak\_nlu & Peak amplitude of NLU signal. $n \in \left[ 1, 3 \right] $ \\
+      peak\_ratio[ab]\_nlu & Ratio of peak amplitude a to b of NLU signal. $ab \in \left\{ 21, 32, 31 \right\} $ \\
+      wave[n]\_energy\_nlu & Energy of NLU reflections. $n \in \left[ 1, 4 \right] $ \\
+      %
+      p[n]\_nlu & Percentiles of NLU signal. $n \in \left\{5, 25, 50, 75, 95 \right\}$ \\
+      mean\_nlu & Mean of NLU signal \\
+      var\_nlu & Variance of NLU signal \\
+      sk\_nlu & Skewness of NLU signal \\
+      kur\_nlu & Kurtosis of NLU signal \\
+      PC[n]\_nlu & Principal component n of NLU signal. $n \in \left[ 1, 15 \right]$ \\
+      ICA[n]\_nlu & Independent component n of NLU signal. $n \in \left[ 1, 10 \right]$ \\
+      %
+      fund\_amp & Amplitude at fundamental frequency of NLU signal \\
+      harm\_amp & Amplitude at second harmonic frequency of NLU signal \\
+      frequency\_centroid\_nlu & Spectral centroid of FFT spectrum of NLU signal \\
+      frequency\_variance\_nlu & Variance of FFT spectrum of NLU signal \\
+      %
+      dwt[n]\_mean\_nlu & Mean of DWT coefficients $n$ of NLU signal. $n \in \left[ 0, 13 \right] $ \\
+      dwt[n]\_var\_nlu & Variance of DWT coefficients $n$ of NLU signal. $n \in \left[ 0, 13 \right] $ \\
+      dwt[n]\_sk\_nlu & Skewness of DWT coefficients $n$ of NLU signal. $n \in \left[ 0, 13 \right] $ \\
+      dwt[n]\_kur\_nlu & Kurtosis of DWT coefficients $n$ of NLU signal. $n \in \left[ 0, 13 \right] $ \\
+      \bottomrule
+    \end{tabularx}
+\end{table}

@@ -20,7 +20,7 @@ as shown in Figure \ref{fig: model development}.
 \end{figure}
 
 \section{Signal pre-processing}
-It is essential to reduce noises and extract regions of interest in signals by signal processing before we perform analyses. \textcolor{red}{Figure XXX presents the signal pre-processing for LU and NLU signals.} First, DC bias is removed by subtracting the mean amplitude from a signal to prevent models from fitting on the bias. Second, considering the computational cost from the high-resolution data, we choose to downsample the ultrasonic signals. Third, we define the region of interest as the interval containing the response of an ultrasonic signal, and thus the other parts of a signal are discarded so that redundant information is not included.
+It is essential to reduce noises and extract regions of interest in signals by signal processing before we perform analyses.x First, DC bias is removed by subtracting the mean amplitude from a signal to prevent models from fitting on the bias. Second, considering the computational cost from the high-resolution data, we choose to downsample the ultrasonic signals. Third, we define the region of interest as the interval containing the response of an ultrasonic signal, and thus the other parts of a signal are discarded so that redundant information is not included.
 
 \section{Feature generation}
 Since ultrasonic sensor signals are unstructured, which is difficult to be manipulated in an ML context, feature extraction methods are needed to create a representative set of values, i.e., features that aggregate the information from an entire signal. In this stage, physics-based and data-driven features are generated. The hybrid feature pool enables us to incorporate both physics knowledge and data-driven information into models.
@@ -60,10 +60,10 @@ Given that physics modeling is built on theories or comprehensive experiment stu
 
     \item Nonlinear acoustic parameter $\beta$
     
-    While wave velocity from LU testing is able to detect fatigue damage at the macroscale, it is limited because it cannot detect defects much smaller than the probing wavelength, e.g., 1 mm. In contrast, NLU techniques are based on a different physical principle: nonlinear elasticity from nano- and micro-scale defects induce harmonic generation. The nonlinear acoustic parameter is related to the amplitude of generated harmonics. This nonlinear parameter changes due to defects such as dislocations, local plastic strain, precipitates, and micro-cracks, all of which are orders of magnitude smaller than the probing wavelength. Here, we apply fast Fourier transform (FFT) to NLU measurements and calculate the nonlinear parameter by using the ratio between the FFT amplitudes of the fundamental and the harmonic waves in Equation \eqref{eq: beta} \textcolor{red}{check the specific equation}
+    While wave velocity from LU testing is able to detect fatigue damage at the macroscale, it is limited because it cannot detect defects much smaller than the probing wavelength, e.g., 1 mm. In contrast, NLU techniques are based on a different physical principle: nonlinear elasticity from nano- and micro-scale defects induce harmonic generation. The nonlinear acoustic parameter is related to the amplitude of generated harmonics. This nonlinear parameter changes due to defects such as dislocations, local plastic strain, precipitates, and micro-cracks, all of which are orders of magnitude smaller than the probing wavelength. Here, we apply fast Fourier transform (FFT) to NLU measurements and calculate the nonlinear parameter by using the ratio between the FFT amplitudes of the fundamental and the harmonic waves in Equation \eqref{eq: beta}
 
     \begin{equation}
-        \beta = \frac{A_2}{A_1}
+        \beta = \frac{A_2}{A_1^2}
         \label{eq: beta}
     \end{equation}
     where $A_1$, $A_2$ is the FFT amplitude of the fundamental wave and the second-order harmonic wave, respectively. Figure \ref{fig: beta} displays the the fundamental and harmonic frequency and their amplitude in the frequency domain.
@@ -93,25 +93,32 @@ The physics-based features alone, however, are not enough to capture all of the 
     \label{fig: dwt decomposition}
 \end{figure}
 
-We concatenate features from LU and NLU signals together, and the feature pool contains 283 features in total. A list of candidate features for LU and NLU signal profiles is displayed in \textcolor{red}{Table XXX}
+We concatenate features from LU and NLU signals together, and the feature pool contains 191 features in total. Lists of candidate features for LU and NLU signal profiles are displayed in Appendix \ref{app: feature}.
 
 \section{Feature selection}
 Feature selection aims to remove redundant features. Irrelevant features are common to see when we construct features without fully understanding a physical process such as the relationship between fatigue mechanism and ultrasonic responses. By including only the best subset of features for a prediction task, feature selection is beneficial for developing robust models against overfitting and improving model generalizability. There exist various feature selection techniques which can be mainly classified into three categories: filter methods, wrapper methods, and embedded methods. Each of these methods has its advantages, disadvantages, and applicable scenarios.
 
-In the model development pipeline, we adopted a wrapper method, recursive feature elimination with cross-validation (RFECV) to obtain an optimal feature subset that achieves the best predictive performance in multiple training/test data splits for a single model. The RFECV algorithm is shown as a part of Figure \ref{fig: rfecv logocv}. First, recursive feature elimination (RFE) starts from a set with all available features and eliminates $k$ features step by step based on the feature ranking with regressors or classifiers until the predetermined number of features $n$ is reached. Nevertheless, the best number of features to select $n^*$ needs to be determined prior to the modeling. To find out $n^*$ while alleviating the problem of overfitting, cross-validation (CV), a statistical model validation technique, is used along with RFE. CV partitions a dataset into a training set and a validation set in each iteration. A model is evaluated multiple times with different partitions, and $n^*$ is determined by the overall validation results. Then, RFE selects the optimal $n^*$ features from the feature pool. We choose a 5-fold CV in this feature selection procedure to avoid adding too much computational cost due to the fact that RFE is already computationally expensive.
+In the model development pipeline, we adopted a wrapper method, recursive feature elimination with cross-validation (RFECV) to obtain an optimal feature subset that achieves the best predictive performance in multiple training/test data splits for a single model. The RFECV algorithm is depicted in Figure \ref{fig: rfecv}. First, recursive feature elimination (RFE) starts from a set with all available features and eliminates $k$ features step by step based on the feature ranking with regressors or classifiers until the predetermined number of features $n$ is reached. Nevertheless, the best number of features to select $n^*$ needs to be determined prior to the modeling. To find out $n^*$ while alleviating the problem of overfitting, cross-validation (CV), a statistical model validation technique, is used along with RFE. CV partitions a dataset into a training set and a validation set in each iteration. A model is evaluated multiple times with different partitions, and $n^*$ is determined by the overall validation results. Then, RFE selects the optimal $n^*$ features from the feature pool. We choose a 5-fold CV in this feature selection procedure to avoid adding too much computational cost due to the fact that RFE is already computationally expensive.
 
 \begin{figure}[tb]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/rfecv.png}
-    \caption{Flowchart for feature selection and hyperparameter tuning \textcolor{red}{re-draw the flowchart}}
-    \label{fig: rfecv logocv}
+    \includegraphics[width=0.9\linewidth]{fig/rfecv.png}
+    \caption{Flowchart for feature selection with RFECV}
+    \label{fig: rfecv}
 \end{figure}
 
 \section{Model training and validation}
 \label{sec: model train and val}
-Model training and validation involve another CV loop in Figure \ref{fig: rfecv logocv} \textcolor{red}{refine the flowchart to indicate this loop}. However, this CV is not for finding the best feature subset but for providing a generalized estimate of a model's performance. Specifically, leave-one-group-out CV (LOGOCV) is applied, where each group contains three repeated measurements at one measurement location on one specimen. Here, we make an assumption that each group, i.e., each measurement location on a specimen, is an independent sample because of the differences in the microstructure. In LOGOCV, each group is tested once and obtained validation scores by a predictor trained on the other groups, which efficiently utilizes the dataset and assesses the generalization capacity of a model.
+Model training and validation involve another CV loop in Figure \ref{fig: logocv}. However, this CV is not for finding the best feature subset but for providing a generalized estimate of a model's performance. Specifically, leave-one-group-out CV (LOGOCV) is applied, where each group contains three repeated measurements at one measurement location on one specimen. Here, we make an assumption that each group, i.e., each measurement location on a specimen, is an independent sample because of the differences in the microstructure. In LOGOCV, each group is tested once and obtained validation scores by a predictor trained on the other groups, which efficiently utilizes the dataset and assesses the generalization capacity of a model.
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/logocv.png}
+    \caption{Flowchart for model training, validation, and hyperparameter tuning with grid search and LOGOCV}
+    \label{fig: logocv}
+\end{figure}
 
 \section{Hyperparameter tuning}
-Searching for an optimal set of hyperparameters is another critical step that significantly influences ML model performance. We use grid search accompanied with the validation scores from the LOGOCV result to tune hyperparameters in a simple manner, as depicted in Figure \ref{fig: rfecv logocv}. Grid search exhaustively considers all candidates from predefined hyperparameter combinations. Each combination is used to train a model, and the best hyperparameter set is the one achieving the best CV result. 
+Searching for an optimal set of hyperparameters is another critical step that significantly influences ML model performance. We use grid search accompanied with the validation scores from the LOGOCV result to tune hyperparameters in a simple manner, as depicted in Figure \ref{fig: logocv}. Grid search exhaustively considers all candidates from predefined hyperparameter combinations. Each combination is used to train a model, and the best hyperparameter set is the one achieving the best CV result. 
 
 The number of hyperparameters and the range of each hyperparameter vary in different learning algorithms. The candidate algorithms includes: logistic regression, support vector machine (SVM), and random forest for classification in Chapter \ref{chap: rul}; linear regression, Lasso regression, SVM, and random forest for regression in Chapter \ref{chap: reg}.
