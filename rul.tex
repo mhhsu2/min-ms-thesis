@@ -2,7 +2,7 @@
 \label{chap: rul}
 
 In this chapter, we propose a framework for predicting the RUL of fatigue damaged samples based on ultrasonic testing. The framework has two parts: \begin{enumerate*}[label=(\alph*)]
-    \item an ML classification task and
+    \item an ML classification method and
     \item an RUL inference procedure based on an S-N curve.
 \end{enumerate*}  First, ultrasonic signals are fed into ML classifiers to predict the loading condition and the percentage of fatigue life that a sample has gone through. Second, we estimate RUL from an S-N curve with the predicted loading condition and percentage of fatigue life. The proposed framework is visualized in Figure \ref{fig: rul framework}.
 
@@ -15,15 +15,15 @@ In this chapter, we propose a framework for predicting the RUL of fatigue damage
 
 \section{Problem formulation}
 \label{sec: rul prob formulation}
-Given the goal of predicting the RUL of EoL products, we formulate the task as an ML problem. In this section, We discuss possible formulations by considering the characteristics of the fatigue dataset and the impact on the ML system.
+In this section, we discuss possible formulations by considering the characteristics of the fatigue dataset and the impact on the ML system.
 
 \subsection{Dataset}
-In this RUL prediction task, the dataset is constructed on the ultrasonic measurements from the interrupted fatigue testing specimens in Table \ref{table: interrupted specimens}. There are 15 specimens and each of these was measured at 9 locations alongside 3 repeated measurements, producing 405 observations in total. Notice that we treat one measurement location on one specimen as a sample in the model training and validation procedure with LOGOCV, as described in Section \ref{sec: model train and val}. Besides, each specimen is tested by a combination of fatigue conditions from 4 loading amplitudes and 3 fatigue levels (the percentage of fatigue life), which forms the labels of a specimen.
+In this RUL prediction task, the dataset is constructed on the ultrasonic measurements from the interrupted fatigue testing specimens in Table \ref{table: interrupted specimens}. There are 15 specimens and each of these was measured at 9 locations alongside 3 repeated measurements, producing 405 observations in total. We treat one measurement location on one specimen as a sample in the model training and validation procedure with LOGOCV, as described in Section \ref{sec: model train and val}. Besides, each specimen is tested by a combination of fatigue conditions from 4 loading amplitudes and 3 fatigue levels (the percentage of fatigue life), which form the label of a specimen.
 
 \subsection{Target variables}
 RUL is intuitively translated by the percentage of fatigue life that a sample has gone through. Normally, the percentage of fatigue life as a continuous target variable is treated as a regression task. However, since we only have 3 different percentages of fatigue life in the dataset, which is not ideal for regression modeling, we decide to view the percentage of fatigue life as a discrete variable and the problem becomes a classification task.
 
-Loading amplitude is another target variable to be considered because loading condition affects the mechanism of fatigue damage in a material. For instance, at 33\% fatigue life, a sample that experienced 11.7 kN loading and a sample that experienced 14.7 kN loading could exist different fatigue damages. Hence, we place a label that is a combination of loading amplitude and the percentage of fatigue life on each sample. Table \ref{table: rul dataset} presents the labeled RUL prediction dataset.
+Loading amplitude is another target variable to be considered because loading condition affects the mechanism of fatigue damage in a material. For instance, at 33\% fatigue life, a sample that experienced 11.7 kN loading and a sample that experienced 14.7 kN loading could possess different fatigue damages. Hence, we place a label that is a combination of loading amplitude and the percentage of fatigue life on each sample. Table \ref{table: rul dataset} presents the labeled RUL prediction dataset.
 
 \begin{table}[tb]
     \centering
@@ -67,7 +67,7 @@ Loading amplitude is another target variable to be considered because loading co
 In this section, classifiers are designed for predicting the loading condition (amplitude) and the percentage of fatigue life that a sample had experienced. Several classifiers are developed and the performance of each of those methods is evaluated based on the model development procedure in Chapter \ref{chap: model}.
 
 \subsection{Multi-class classifier}
-A multi-class classifier is trained to classify a sample into 1 of the 7 classes. Figure \ref{fig: multi-class classifier} shows the training and inference process of the multi-class classifier. In multi-class classification problems, classes are mutually exclusive, e.g., class 1 and class 3 have nothing in common. However, despite we claimed that various loading conditions result in different fatigue behaviors in material, some similarities in material properties still exist. For example, at 33\% fatigue life, samples with 11.7 kN loading and samples with 12.7 kN can have similar fatigue conditions. This idea can be applied to the commonality in samples at different percentages of fatigue life as well. With the assumption of mutual exclusivity, the multi-class formulation cannot capture these characteristics of the fatigue data.
+A multi-class classifier is trained to classify a sample into 1 of the 7 classes. Figure \ref{fig: multi-class classifier} shows the training and inference process of the multi-class classifier. In multi-class classification problems, classes are mutually exclusive, e.g., class 1 and class 3 have nothing in common. Despite we claimed that various loading conditions result in different fatigue behaviors in material, some similarities in material properties still exist. For example, at 33\% fatigue life, samples with 11.7 kN loading and samples with 12.7 kN can have similar fatigue conditions. This idea can be applied to the commonality in samples at different percentages of fatigue life as well. With the assumption of mutual exclusivity, the multi-class formulation cannot capture these characteristics of the fatigue data.
 
 \begin{figure}[tb]
     \centering
@@ -78,9 +78,9 @@ A multi-class classifier is trained to classify a sample into 1 of the 7 classes
 
 \subsection{Multi-output classifier}
 \label{subsec: multi-output classifier}
-On the other hand, multi-output classification is capable of exploiting dependency among labels \cite{multi-label-Zhang2014} by predicting the loading amplitude and percentage of fatigue life separately. A multi-output classifier outputs multiple labels, where predicting each label is considered a multi-class classification problem. In this design, we build one classifier for predicting the loading amplitude from input signals; another one for classifying a signal into one of the percentages of fatigue life. Then, the two predicted labels are combined based on a decision rule to output a class label that is consistent with the label in the dataset, as depicted in Figure \ref{fig: multi-output classifier}. 
+On the other hand, multi-output classification is capable of exploiting dependency among labels \cite{multi-label-Zhang2014} by predicting the loading amplitude and percentage of fatigue life separately. A multi-output classifier outputs multiple labels, where predicting each label is considered a multi-class classification problem. In this design, we build one classifier for predicting the loading amplitude from input signals; and another one for classifying a signal into one of the percentages of fatigue life. Then, the two predicted labels are combined based on a decision rule to output a class label that is consistent with the label in the dataset, as depicted in Figure \ref{fig: multi-output classifier}. 
 
-These two classifiers, the loading amplitude classifier (LAC) and the fatigue cycle classifier (FCC), are trained separately with the same model development procedure but different target variables. As a result, unlike the single multi-class classifier trying to learn a way to separate 7 classes, the multi-output classification builds a LAC for a 4-class classification problem of the loading amplitude and an FCC for a 3-class problem of the percentage of fatigue life, which makes the problems easier to learn.
+These two classifiers, the loading amplitude classifier (LAC) and the fatigue cycle classifier (FCC), are trained separately with the same model development procedure but different target variables. As a result, unlike the single multi-class classifier trying to learn a way to separate 7 classes, the multi-output classification builds an LAC for a 4-class classification problem of the loading amplitude and an FCC for a 3-class problem of the percentage of fatigue life, which makes the problems easier to learn.
 
 \begin{figure}[tb]
     \centering
@@ -90,7 +90,7 @@ These two classifiers, the loading amplitude classifier (LAC) and the fatigue cy
 \end{figure}
 
 \subsection{Two-stage classifier}
-Figure \ref{fig: two-stage classifier} shows the design of a two-stage classifier. Extended from the idea of the multi-output classifier in Subsection \ref{subsec: multi-output classifier}, a two-stage classifier is a classifier chain \cite{classifier-chain-READ2007} that predicts the loading amplitude and percentage of fatigue life in order. The classification starts with a LAC and the predicted loading amplitude is added to the feature space of an FCC, \fcctwo. By utilizing the predicted label as a feature for the next classifiers, the label dependence is preserved, i.e., the prediction of the percentage of fatigue life depends on the loading amplitude. In this case, we put the LAC before the \fcctwo \  because sometimes the loading condition is given in real-life scenarios. Note that, in the training phase, the true loading amplitude is used to train the \fcctwo, but the \fcctwo \ takes the predicted loading amplitude as one of the input features in inference.
+Figure \ref{fig: two-stage classifier} shows the design of a two-stage classifier. Extended from the idea of the multi-output classifier presented in Subsection \ref{subsec: multi-output classifier}, a two-stage classifier is a classifier chain \cite{classifier-chain-READ2007} that predicts the loading amplitude and percentage of fatigue life in order. The classification starts with an LAC and the predicted loading amplitude is added to the feature space of an FCC, \fcctwo. By utilizing the predicted label as a feature for the next classifiers, the label dependence is preserved, i.e., the prediction of the percentage of fatigue life depends on the loading amplitude. In this case, we put the LAC before the \fcctwo \  because sometimes the loading condition is given in real-life scenarios. Note that, in the training phase, the true loading amplitude is used to train the \fcctwo, but the \fcctwo \ takes the predicted loading amplitude as one of the input features in inference.
 
 \begin{figure}[tb]
     \centering
@@ -119,12 +119,12 @@ A prediction is inferred by the following steps:
 For example, 11.7 kN loading amplitude is predicted by the LAC. Therefore, FCC\textsubscript{11.7 kN} is selected and outputs a 33\% fatigue life prediction. Finally, the predicted result is Class 1 (11.7 kN, 33\%).
 
 \subsection{Evaluation metrics}
-Accuracy, recall, precision, and F1-measure are used to evaluate a classifier's performance with its LOGOCV result, and confusion matrices are also used to visualize model predictions. Although there exist other evaluation metrics for multi-output classification problems, we evaluate the aforementioned classifier designs in a unified multi-class classification problem with the label defined in Table \ref{table: rul dataset}. Thus, these classifier designs are comparable with each other. In this task, accuracy is an overall indicator for a model's performance since there is not much class imbalance in the dataset. Furthermore, a model's performance in each class is provided by recall, precision and F1-measure. Finally, confusion matrices serve as a visualization tool for summarizing the detailed result of the prediction from a classifier. The importance of each metric is left for practitioners to decide as it depends on different scenarios. For example, recall may be more important than precision in classifying highly-fatigued samples due to the consideration of safety.
+Accuracy, recall, precision, and F1-measure are used to evaluate a classifier's performance with its LOGOCV result, and confusion matrices are also used to visualize model predictions. Although there exist other evaluation metrics for multi-output classification problems, we evaluate the aforementioned classifier designs in a unified multi-class classification problem with the label defined in Table \ref{table: rul dataset}. Thus, these classifier designs can be compared in a fair way. In this task, accuracy is an overall indicator for a model's performance since there is not much class imbalance in the dataset. Furthermore, a model's performance in each class is provided by recall, precision, and F1-measure. Finally, confusion matrices serve as a visualization tool for summarizing the detailed prediction result from a classifier. The importance of each metric is left for practitioners to decide as it depends on different scenarios. For example, recall may be more important than precision in classifying highly-fatigued samples due to the consideration of safety.
 
 \subsection{Results}
 This subsection summarizes the results of the developed classifier designs. Table \ref{table: summary class algo} presents the learning algorithms and the number of features determined by the model development procedure in Chapter \ref{chap: model}. Figure \ref{fig: f1 comparison} shows the performance of each classifier design by class. It is noticed that the proposed hierarchical classifier outperforms the other methods discussed in Section \ref{sec: design of classifiers} for every class except class 6. Therefore, the hierarchical classifier is chosen to demonstrate the RUL estimation algorithm in the following sections.
 
-The recall, precision, and F1-score of the hierarchical classifier are reported in Table \ref{table: hier class performance}, and Figure \ref{fig: confu mat hier} presents the detail of the LOGOCV classification result from the hierarchical classifier for 405 measurements in the dataset. It is observed that class 0 has 100\% recall rate and only 2 measurements in class 5 are wrongly classified into class 0, implying that healthy samples are distinguishable from other damaged samples. Similarly, both class 1 and class 2 have 96.3\% recall rate and few measurements are wrongly predicted as these two classes, showing that the classifier can identify the samples that had undergone the low-amplitude fatigue testing. In addition, even though classes 3-6 have more misclassified data points, those errors are mostly situated in the same loading amplitude as the true class, indicating the LAC is able to estimate the loading amplitude that a sample has been applied. With the overall accuracy being 85.2\%, the proposed hierarchical classifier achieves a promising result for this application.
+The recall, precision, and F1-score of the hierarchical classifier are reported in Table \ref{table: hier class performance}, and Figure \ref{fig: confu mat hier} presents the detail of the LOGOCV classification result from the hierarchical classifier for 405 measurements in the dataset. It is observed that class 0 has 100\% recall rate and only 2 measurements in class 5 are wrongly classified into class 0, implying that healthy samples are distinguishable from damaged samples. Similarly, both class 1 and class 2 have 96.3\% recall rate and few measurements are wrongly predicted as these two classes, showing that the classifier can reliably identify the samples that had undergone the low-amplitude fatigue testing. In addition, even though classes 3-6 have more misclassified data points, those errors are mostly situated in the same loading amplitude as the true class, indicating the LAC is able to estimate the loading amplitude that a sample has been applied. With the overall accuracy being 85.2\%, the proposed hierarchical classifier achieves a promising result for this application.
 
 \begin{table}[tb]
     \centering
@@ -169,7 +169,7 @@ The recall, precision, and F1-score of the hierarchical classifier are reported 
     \label{fig: f1 comparison}
 \end{figure}
 
-\begin{table}[tb]
+\begin{table}[!h]
     \centering
     \caption{Classification performance of hierarchical classifier}
     \label{table: hier class performance}
@@ -267,7 +267,7 @@ An S-N curve serves as a look-up table for linking a classifier's predictions to
 
 \subsection{Examples}
 
-In this subsection, we demonstrate two examples of the RUL estimation based on the proposed framework. Because the true fatigue life of the testing specimens in the interrupted fatigue testing is not available, we cannot calculate the error of the RUL estimation for this stage. Instead, the 95\% confidence intervals of the RUL of specimen 3 and 5 are presented in Table \ref{table: rul 3} and \ref{table: rul 5}. 
+In this subsection, we present two examples of the RUL estimation based on the proposed framework. Because the true fatigue life of the testing specimens in the interrupted fatigue testing is not available, we cannot calculate the error of the RUL estimation for this stage. Instead, the 95\% confidence intervals of the RUL of specimens 3 and 5 are presented in Table \ref{table: rul 3} and \ref{table: rul 5}. 
 
 In Table \ref{table: rul 3}, the 95\% confidence intervals successfully cover a referencing RUL calculated by subtracting the recorded number of cycles from the mean fatigue life. Among all measurements for specimen 3, only 1 measurement at location 2a is misclassified, indicating the strength of the proposed model in estimating the RUL for samples that had undergone low-amplitude fatigue cycles. Also, the prediction of the other 2 repeated measurements at location 2a are correct, implying that an accurate decision can be made by considering multiple measurements at one location. For specimen 5 in Table \ref{table: rul 5}, more measurements are misclassified. An interesting observation is, however, shorter RUL is estimated at location 1 and 2, at which higher damage levels could happen since the two locations are closer to the center of the specimen. 
 % \textcolor{red}{Results for the other specimens are reported in Appendix XX}.
@@ -343,7 +343,7 @@ This section discusses several findings and limitations of the RUL estimation fr
 \end{enumerate*}
 Other takeaways and issues are mentioned in Chapter \ref{chap: concl}.
 
-\subsection{Impacts from classifier designs and the structure of data}
+\subsection{Impacts of classifier designs and the structure of data}
 As presented in Section \ref{sec: design of classifiers}, a major problem can be decomposed into several sub-tasks by adopting a divide-and-conquer approach and the error rates can be reduced. In Table \ref{table: summary class algo}, one can observe that the prediction accuracy increases from 77.3\% (multi-class classifier) to 85.3\% (hierarchical classifier) as we split the meta classification problem into smaller classification tasks by exploiting the structure of the data. Nevertheless, the caveat is that introducing more classifiers for subtasks can increase the risk of overfitting the small dataset. The trade-off between the generalizability and the performance of a classifier design is left for further investigation. 
 
 \subsection{Decision making based on multiple measurements}
