@@ -78,7 +78,7 @@ A multi-class classifier is trained to classify a sample into 1 of the 7 classes
 
 \subsection{Multi-output classifier}
 \label{subsec: multi-output classifier}
-On the other hand, multi-output classification is capable of dealing with mutually non-exclusive classes by predicting the loading amplitude and percentage of fatigue life separately. A multi-output classifier outputs multiple labels, where predicting each label is considered a multi-class classification problem. In this design, we build one classifier for predicting the loading amplitude from input signals; another one for classifying a signal into one of the percentages of fatigue life. Then, the two predicted labels are combined based on a decision rule to output a class label that is consistent with the label in the dataset, as depicted in Figure \ref{fig: multi-output classifier}. 
+On the other hand, multi-output classification is capable of exploiting dependency among labels \cite{multi-label-Zhang2014} by predicting the loading amplitude and percentage of fatigue life separately. A multi-output classifier outputs multiple labels, where predicting each label is considered a multi-class classification problem. In this design, we build one classifier for predicting the loading amplitude from input signals; another one for classifying a signal into one of the percentages of fatigue life. Then, the two predicted labels are combined based on a decision rule to output a class label that is consistent with the label in the dataset, as depicted in Figure \ref{fig: multi-output classifier}. 
 
 These two classifiers, the loading amplitude classifier (LAC) and the fatigue cycle classifier (FCC), are trained separately with the same model development procedure but different target variables. As a result, unlike the single multi-class classifier trying to learn a way to separate 7 classes, the multi-output classification builds a LAC for a 4-class classification problem of the loading amplitude and an FCC for a 3-class problem of the percentage of fatigue life, which makes the problems easier to learn.
 
@@ -165,7 +165,7 @@ The recall, precision, and F1-score of the hierarchical classifier are reported 
 
 \begin{figure}[tb]
     \includegraphics[width=\linewidth]{fig/f1_comparison.png}
-    \caption{Comparison of F1-score by class and classifier designs}
+    \caption{Comparison of F1-score from the LOGOCV test results by class and classifier designs}
     \label{fig: f1 comparison}
 \end{figure}
 
@@ -182,7 +182,7 @@ The recall, precision, and F1-score of the hierarchical classifier are reported 
     }
     \toprule
     %
-    & \multicolumn{3}{c}{LOGOCV} & No. data \\
+    & \multicolumn{3}{c}{LOGOCV Test} & No. data \\
     \cmidrule(lr){2-4}
     %
     & Precision & Recall & F1-score & \\
