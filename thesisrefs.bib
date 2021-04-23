@@ -1070,3 +1070,64 @@ and Vanschoren, Joaquin},
   pages   = {1819-1837},
   doi     = {10.1109/TKDE.2013.39}
 }
+
+@article{feature-selection-SHAO2013550,
+  title    = {Feature selection for manufacturing process monitoring using cross-validation},
+  journal  = {Journal of Manufacturing Systems},
+  volume   = {32},
+  number   = {4},
+  pages    = {550-555},
+  year     = {2013},
+  issn     = {0278-6125},
+  doi      = {https://doi.org/10.1016/j.jmsy.2013.05.006},
+  url      = {https://www.sciencedirect.com/science/article/pii/S027861251300071X},
+  author   = {Chenhui Shao and Kamran Paynabar and Tae Hyung Kim and Jionghua (Judy) Jin and S. Jack Hu and J. Patrick Spicer and Hui Wang and Jeffrey A. Abell},
+  keywords = {Feature selection, Parameter tuning, Cross-validation, SPC monitoring, Ultrasonic metal welding},
+  abstract = {A novel algorithm is developed for feature selection and parameter tuning in quality monitoring of manufacturing processes using cross-validation. Due to the recent development in sensing technology, many on-line signals are collected for manufacturing process monitoring and feature extraction is then performed to extract critical features related to product/process quality. However, lack of precise process knowledge may result in many irrelevant or redundant features. Therefore, a systematic procedure is needed to select a parsimonious set of features which provide sufficient information for process monitoring. In this study, a new method for selecting features and tuning SPC limits is proposed by applying k-fold cross-validation to simultaneously select important features and set the monitoring limits using Type I and Type II errors obtained from cross-validation. The monitoring performance for production data collected from ultrasonic metal welding of batteries demonstrates that the proposed algorithm is able to select the most efficient features and control limits and thus leading to satisfactory monitoring performance.}
+}
+
+@article{dynamic-sampling-Shao,
+  author   = {Shao, Chenhui and Jin, Jionghua (Judy) and Jack Hu, S.},
+  title    = {{Dynamic Sampling Design for Characterizing Spatiotemporal Processes in Manufacturing}},
+  journal  = {Journal of Manufacturing Science and Engineering},
+  volume   = {139},
+  number   = {10},
+  year     = {2017},
+  month    = {08},
+  abstract = {{Fine-scale characterization and monitoring of spatiotemporal processes are crucial for high-performance quality control of manufacturing processes, such as ultrasonic metal welding and high-precision machining. However, it is generally expensive to acquire high-resolution spatiotemporal data in manufacturing due to the high cost of the three-dimensional (3D) measurement system or the time-consuming measurement process. In this paper, we develop a novel dynamic sampling design algorithm to cost-effectively characterize spatiotemporal processes in manufacturing. A spatiotemporal state-space model and Kalman filter are used to predictively determine the measurement locations using a criterion considering both the prediction performance and the measurement cost. The determination of measurement locations is formulated as a binary integer programming problem, and genetic algorithm (GA) is applied for searching the optimal design. In addition, a new test statistic is proposed to monitor and update the surface progression rate. Both simulated and real-world spatiotemporal data are used to demonstrate the effectiveness of the proposed method.}},
+  issn     = {1087-1357},
+  doi      = {10.1115/1.4036347},
+  url      = {https://doi.org/10.1115/1.4036347},
+  note     = {101002},
+  eprint   = {https://asmedigitalcollection.asme.org/manufacturingscience/article-pdf/139/10/101002/6274519/manu\_139\_10\_101002.pdf}
+}
+
+@article{yuhang,
+  title     = {Hierarchical measurement strategy for cost-effective interpolation of spatiotemporal data in manufacturing},
+  abstract  = {High-resolution spatiotemporal data is crucial for characterizing, modeling, and monitoring the space–time dynamics of complex systems in manufacturing. However, the acquisition of such data is generally expensive and time-consuming. Spatiotemporal interpolation aims to predict the values at unmeasured locations using measured data, and emerges as a promising solution to cost-effectively characterizing spatiotemporal processes. Since the interpolation performance is largely influenced by the available measurement data, an intelligent measurement strategy is an important prerequisite to the success of interpolation methods. In this paper, a hierarchical measurement strategy is developed to achieve a balance between interpolation precision and measurement cost in spatiotemporal interpolation. A hierarchical decision-making problem is formulated to determine the observation times and measurement locations at each observation. To expedite the solution search process, hierarchical genetic algorithm is adopted and implemented using high-performance computing. Moreover, a new form of the covariance function is developed using a Bessel additive periodic variogram to more accurately model the periodic spatial variations in spatiotemporal processes. Case studies using real-world data collected from ultrasonic metal welding are reported to demonstrate the effectiveness of the proposed method.},
+  keywords  = {High-performance computing, Interpolation, Manufacturing, Measurement strategy, Sampling design, Spatiotemporal processes},
+  author    = {Yuhang Yang and Yifang Zhang and Cai, {Y. Dora} and Qiyue Lu and Seid Koric and Chenhui Shao},
+  year      = {2019},
+  month     = oct,
+  doi       = {10.1016/j.jmsy.2019.09.009},
+  language  = {English (US)},
+  volume    = {53},
+  pages     = {159--168},
+  journal   = {Journal of Manufacturing Systems},
+  issn      = {0278-6125},
+  publisher = {Elsevier}
+}
+
+@article{CHEN2021306,
+  title    = {Multi-task learning for data-efficient spatiotemporal modeling of tool surface progression in ultrasonic metal welding},
+  journal  = {Journal of Manufacturing Systems},
+  volume   = {58},
+  pages    = {306-315},
+  year     = {2021},
+  issn     = {0278-6125},
+  doi      = {https://doi.org/10.1016/j.jmsy.2020.12.009},
+  url      = {https://www.sciencedirect.com/science/article/pii/S0278612520302235},
+  author   = {Haotian Chen and Yuhang Yang and Chenhui Shao},
+  keywords = {Spatiotemporal process, Multi-task learning, Transfer learning, Kernel method, Surface monitoring, Quality control, Ultrasonic metal welding, Manufacturing},
+  abstract = {Spatiotemporal processes commonly exist in manufacturing. Modeling and monitoring such processes are crucial for ensuring high-quality production. For example, ultrasonic metal welding is an important industrial-scale joining technique with wide applications. The surfaces of ultrasonic welding tools evolve in both spatial and temporal domains, resulting in a spatiotemporal process. Close monitoring of tool surface progression is imperative since degraded tools often lead to low-quality joints. However, it is generally expensive and time-consuming to acquire fine-scale surface measurement data, which is not economically viable. This paper develops a multi-task learning method to enable data-efficient spatiotemporal modeling. A Gaussian process-based hierarchical Bayesian inference structure is constructed to transfer knowledge among multiple similar-but-not-identical measurement tasks. Meanwhile, a spatiotemporal kernel is developed based on squared sine exponential damping (SSED) function to characterize the periodic trend of anvil surfaces. The proposed method is able to improve interpolation accuracy using limited measurement data compared with state-of-the-art techniques. Data collected from lithium-ion battery production are employed to demonstrate the effectiveness of the proposed method. Additionally, the influence of training data size and hyperparameter selection on the modeling performance is systematically investigated.}
+}
