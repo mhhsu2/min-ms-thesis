@@ -83,15 +83,8 @@ The physics-based features alone, however, are not enough to capture all of the 
 
     \item Time-frequency domain features
     
-    Ultrasonic signals are usually not stationary, i.e., frequency changes in time, because of the interaction between ultrasonic waves and discontinuities within the material. Therefore, time-frequency analysis is needed to describe the phenomena. Discrete wavelet transform (DWT) is adopted to decompose ultrasonic measurements into several frequency bands, as an example in Figure \ref{fig: dwt decomposition}. Then, statistics such as mean, median, kurtosis, and skewness are recorded for each frequency band.
+    Ultrasonic signals are usually not stationary, i.e., frequency changes in time, because of the interaction between ultrasonic waves and discontinuities within the material. Therefore, time-frequency analysis is needed to describe the phenomena. Discrete wavelet transform (DWT) is adopted to decompose ultrasonic measurements into several frequency bands. Then, statistics such as mean, median, kurtosis, and skewness are recorded for each frequency band.
 \end{itemize}
-
-\begin{figure}[tb]
-    \centering
-    \includegraphics[height=\linewidth]{fig/dwt_decomposition.png}
-    \caption{DWT decomposition of an NLU signal}
-    \label{fig: dwt decomposition}
-\end{figure}
 
 We concatenate features from LU and NLU signals together, and the feature pool contains 191 features in total. Lists of candidate features for LU and NLU signal profiles are displayed in Appendix \ref{app: feature}.
 
