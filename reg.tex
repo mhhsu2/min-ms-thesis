@@ -77,7 +77,7 @@ Residual stress and FWHM are the target variables in this chapter. Residual stre
 
 \section{Residual stress prediction}
 \label{sec: rs prediction}
-A regression model, RFECV-SVM\textsubscript{RS}, for predicting residual stress based on ultrasonic signals is developed by following the procedure in Chapter \ref{chap: model}. Besides, the RFECV-SVM\textsubscript{RS} model is compared with other approaches such as Lasso regression, linear regression with top 5 features from Lasso regression, and random forest. Root mean squared error (RMSE) and mean absolute percentage error (MAPE) are used to assess the model performance with LOGOCV results, as shown in Table \ref{table: summary rs model}. In this task, the RFECV-SVM\textsubscript{RS} model performs the best with the MAPE of 4.73\%. Figure \ref{fig: rs prediction} illustrates the RFECV-SVM\textsubscript{RS} model prediction by showing the actual and predicted residual stresses, in which a perfect model should follow the black line. It is observed that in most groups, at least one prediction among three repeated measurements (three predictions for the same actual residual stress in one sample group) is close to the ideal prediction, and the MAPEs for each group are mostly below 10\%.
+A regression model, RFECV-SVM\textsubscript{RS}, for predicting residual stress based on ultrasonic signals is developed by following the procedure in Chapter \ref{chap: model}. Besides, the RFECV-SVM\textsubscript{RS} model is compared with other approaches such as Lasso regression, linear regression with top 5 features from Lasso regression, and random forest. Root mean squared error (RMSE) and mean absolute percentage error (MAPE) are used to assess the model performance with LOGOCV results, as shown in Table \ref{table: summary rs model}. In this task, the RFECV-SVM\textsubscript{RS} model performs the best with the MAPE of 4.73\%. Figure \ref{fig: rs prediction} illustrates the RFECV-SVM\textsubscript{RS} model prediction by showing the actual and predicted residual stresses, in which a perfect model should follow the black line. It is observed that in most groups, at least one prediction among three repeated measurements (there are three predictions for the same actual residual stress in one sample group) is close to the ideal prediction, and the MAPEs for each group are mostly below 10\%.
 
 \begin{table}[tb]
     \centering
@@ -97,7 +97,7 @@ A regression model, RFECV-SVM\textsubscript{RS}, for predicting residual stress 
     %
     Lasso regression & 37 & 5.90 & 8.71 \\
     Linear regression & 5 & 4.92 & 7.54 \\
-    Random forest & 191 & 7.74 & 12.85 \\
+    Random forest & 195 & 7.74 & 12.85 \\
     \textbf{RFECV-SVM} & 29 & \textbf{3.24} & \textbf{4.73} \\
     \bottomrule
     \end{tabularx}
@@ -111,7 +111,7 @@ A regression model, RFECV-SVM\textsubscript{RS}, for predicting residual stress 
 \end{figure}
 
 \section{FWHM prediction}
-Similarly, an FWHM prediction model, RFECV-SVM\textsubscript{FWHM}, is built based on the procedure in Chapter \ref{chap: model} and is evaluated with the same metrics used in Section \ref{sec: rs prediction}. Table \ref{table: summary fwhm model} is the comparison of the RFECV-SVM\textsubscript{FWHM} with other regression methods. It is worth mentioning that the linear regression model with the top 5 features selected from Lasso regression achieves a 1.89\% MAPE, performing slightly better than the RFECV-SVM\textsubscript{FWHM}. Figure \ref{fig: fwhm prediction lr} and \ref{fig: fwhm prediction svm} illustrate the predictions of the linear regression model and the RFECV-SVM\textsubscript{FWHM}, respectively. For the RFECV-SVM\textsubscript{FWHM}, one can observe that the predictions of the small FWHM values from specimen 7 significantly deviate from the ideal predictions; nevertheless, the linear regression model is able to make close predictions. As mentioned earlier, we surmise that specimen 7 had developed cracks and the difference in the model performance led us to have a further investigation about specimen 7 in Section \ref{sec: reg discussion}. Before performing further analysis, by excluding specimen 7, we can conclude that both models achieve a good performance in predicting FWHM with errors less than 2\%.
+Similarly, an FWHM prediction model, RFECV-SVM\textsubscript{FWHM}, is built based on the procedure in Chapter \ref{chap: model} and is evaluated with the same metrics used in Section \ref{sec: rs prediction}. Table \ref{table: summary fwhm model} is the comparison of the RFECV-SVM\textsubscript{FWHM} with other regression methods. It is worth mentioning that the linear regression model with the top 5 features selected from Lasso regression achieves a 1.89\% MAPE, performing slightly better than the RFECV-SVM\textsubscript{FWHM}. Figures \ref{fig: fwhm prediction lr} and \ref{fig: fwhm prediction svm} illustrate the predictions of the linear regression model and the RFECV-SVM\textsubscript{FWHM}, respectively. For the RFECV-SVM\textsubscript{FWHM}, one can observe that the predictions of the small FWHM values from specimen 7 significantly deviate from the ideal predictions; nevertheless, the linear regression model is able to make close predictions. As mentioned earlier, we surmise that specimen 7 had developed cracks and the difference in the model performance led us to have a further investigation about specimen 7 in Section \ref{sec: reg discussion}. Before performing further analysis, by excluding specimen 7, we can conclude that both models achieve a good performance in predicting FWHM with MAPEs less than 2\%.
 
 \begin{table}[tb]
   \centering
@@ -131,7 +131,7 @@ Similarly, an FWHM prediction model, RFECV-SVM\textsubscript{FWHM}, is built bas
   %
   Lasso regression & 20 & 0.0081 & 2.40 \\
   \textbf{Linear regression} & 5 & \textbf{0.0056} & \textbf{1.62} \\
-  Random forest & 191 & 0.0099 & 2.81 \\
+  Random forest & 195 & 0.0099 & 2.81 \\
   \textbf{RFECV-SVM} & 7 & \textbf{0.0063} & \textbf{1.89} \\
   \bottomrule
   \end{tabularx}
@@ -161,7 +161,7 @@ Similarly, an FWHM prediction model, RFECV-SVM\textsubscript{FWHM}, is built bas
 In this section, since we conjecture that specimen 7 had developed cracks based on the relatively small FWHM values measured from XRD analysis, the potential of using our ultrasonic technology to detect cracks is discussed.
 
 \subsection{Crack detection through LU and NLU measurements}
-To investigate whether our ultrasonic technology can detect cracks or not, we first assume specimen 7 is cracked and the differences in ultrasonic signals between specimen 7 and specimen 8 were resulted from the existence of cracks since specimen 7 and 8 were under the same experimental setting. Secondly, independent t-test is performed to test if the mean of a feature is significantly different between two groups, specimen 7 (15 measurements from location 3a to 3) and specimen 8 (15 measurements from location 3a to 3). Finally, Figure \ref{fig: crack detection feat dist} displays several specimen 7's and specimen 8's probability density plots of the selected features. The distributions are not identical between specimen 7 and 8, indicating that these features are possible to distinguish cracked samples from normal samples; however, given that we only have two specimens in this test and there exist other factors causing the differences in measurement signals, further research on crack detection through our ultrasonic technology is required.
+To investigate whether our ultrasonic technology can detect cracks or not, we first assume specimen 7 is cracked and the differences in ultrasonic signals between specimen 7 and specimen 8 were resulted from the existence of the cracks since specimen 7 and 8 were under the same experimental setting. Secondly, independent t-test is performed to test if the mean of a feature is significantly different between two groups, specimen 7 (15 measurements from location 3a to 3) and specimen 8 (15 measurements from location 3a to 3). Finally, Figure \ref{fig: crack detection feat dist} displays several specimen 7's and specimen 8's probability density plots of the selected features. The distributions are not identical between specimens 7 and 8, indicating that these features are possible to distinguish cracked samples from normal samples; however, given that we only have two specimens in this test and there are other factors causing the differences in measurement signals, further research on crack detection through our ultrasonic technology is required.
 
 \begin{figure}[tb]
   \begin{subfigure}[t]{0.49\linewidth}
@@ -182,7 +182,7 @@ To investigate whether our ultrasonic technology can detect cracks or not, we fi
   \begin{subfigure}[t]{0.49\linewidth}
     \centering
     \includegraphics[width=0.8\textwidth]{fig/crack_detection_dwt2_kur_nlu.png}
-    \caption{Kurtosis of DWT 3 coefficient of NLU signal}
+    \caption{Kurtosis of DWT 2 coefficient of NLU signal}
   \end{subfigure}
   \begin{subfigure}[t]{0.49\linewidth}
     \centering

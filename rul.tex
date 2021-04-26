@@ -23,7 +23,7 @@ In this RUL prediction task, the dataset is constructed on the ultrasonic measur
 \subsection{Target variables}
 RUL is intuitively translated by the percentage of fatigue life that a sample has gone through. Normally, the percentage of fatigue life as a continuous target variable is treated as a regression task. However, since we only have 3 different percentages of fatigue life in the dataset, which is not ideal for regression modeling, we decide to view the percentage of fatigue life as a discrete variable and the problem becomes a classification task.
 
-Loading amplitude is another target variable to be considered because loading condition affects the mechanism of fatigue damage in a material. For instance, at 33\% fatigue life, a sample that experienced 11.7 kN loading and a sample that experienced 14.7 kN loading could possess different fatigue damages. Hence, we place a label that is a combination of loading amplitude and the percentage of fatigue life on each sample. Table \ref{table: rul dataset} presents the labeled RUL prediction dataset.
+Loading amplitude is another target variable to be considered because loading condition affects the mechanism of fatigue damage in a material. For instance, at 33\% fatigue life, a sample that experienced 11.7 kN loading and a sample that experienced 14.7 kN loading could possess different fatigue damages. Hence, we place a label that is a combination of the loading amplitude and percentage of fatigue life on each sample. Table \ref{table: rul dataset} presents the labeled RUL prediction dataset.
 
 \begin{table}[tb]
     \centering
@@ -67,7 +67,7 @@ Loading amplitude is another target variable to be considered because loading co
 In this section, classifiers are designed for predicting the loading condition (amplitude) and the percentage of fatigue life that a sample had experienced. Several classifiers are developed and the performance of each of those methods is evaluated based on the model development procedure in Chapter \ref{chap: model}.
 
 \subsection{Multi-class classifier}
-A multi-class classifier is trained to classify a sample into 1 of the 7 classes. Figure \ref{fig: multi-class classifier} shows the training and inference process of the multi-class classifier. In multi-class classification problems, classes are mutually exclusive, e.g., class 1 and class 3 have nothing in common. Despite we claimed that various loading conditions result in different fatigue behaviors in material, some similarities in material properties still exist. For example, at 33\% fatigue life, samples with 11.7 kN loading and samples with 12.7 kN can have similar fatigue conditions. This idea can be applied to the commonality in samples at different percentages of fatigue life as well. With the assumption of mutual exclusivity, the multi-class formulation cannot capture these characteristics of the fatigue data.
+A multi-class classifier is trained to classify a sample into 1 of the 7 classes. Figure \ref{fig: multi-class classifier} shows the training and inference process of the multi-class classifier. In multi-class classification problems, classes are mutually exclusive, e.g., class 1 and class 3 have nothing in common. Despite we claimed that various loading conditions result in different fatigue behaviors in material, some similarities in material properties still exist. For example, at 33\% fatigue life, samples with 11.7 kN loading and samples with 12.7 kN loading can have similar fatigue conditions. This idea can be applied to the commonality in samples at different percentages of fatigue life as well. With the assumption of mutual exclusivity, the multi-class formulation cannot capture these characteristics of the fatigue data.
 
 \begin{figure}[tb]
     \centering
@@ -116,7 +116,7 @@ A prediction is inferred by the following steps:
     \item the predicted loading amplitude is used to choose one of the FCCs for predicting the percentage of fatigue life.
     \item the chosen FCC predicts the percentage of fatigue life.
 \end{enumerate*}
-For example, 11.7 kN loading amplitude is predicted by the LAC. Therefore, FCC\textsubscript{11.7 kN} is selected and outputs a 33\% fatigue life prediction. Finally, the predicted result is Class 1 (11.7 kN, 33\%).
+For example, 11.7 kN loading amplitude is predicted by the LAC. Therefore, FCC\textsubscript{11.7 kN} is selected and outputs a 33\% fatigue life prediction. Finally, the predicted result is class 1 (11.7 kN, 33\%).
 
 \subsection{Evaluation metrics}
 Accuracy, recall, precision, and F1-measure are used to evaluate a classifier's performance with its LOGOCV result, and confusion matrices are also used to visualize model predictions. Although there exist other evaluation metrics for multi-output classification problems, we evaluate the aforementioned classifier designs in a unified multi-class classification problem with the label defined in Table \ref{table: rul dataset}. Thus, these classifier designs can be compared in a fair way. In this task, accuracy is an overall indicator for a model's performance since there is not much class imbalance in the dataset. Furthermore, a model's performance in each class is provided by recall, precision, and F1-measure. Finally, confusion matrices serve as a visualization tool for summarizing the detailed prediction result from a classifier. The importance of each metric is left for practitioners to decide as it depends on different scenarios. For example, recall may be more important than precision in classifying highly-fatigued samples due to the consideration of safety.
@@ -211,14 +211,15 @@ The recall, precision, and F1-score of the hierarchical classifier are reported 
 \end{table}
 
 \begin{figure}[tb]
-    \includegraphics[width=0.9\linewidth]{fig/hierarchical_confusion_matrix.png}
+    \centering
+    \includegraphics[width=0.75\linewidth]{fig/hierarchical_confusion_matrix.png}
     \caption{Confusion matrix of hierarchical classifier for cross-validation}
     \label{fig: confu mat hier}
 \end{figure}
 
 
 \section{RUL estimation with an S-N curve}
-In the proposed framework, after obtaining the predicted loading amplitude and percentage of fatigue life, the RUL of a sample is estimated with the S-N curve of the material.
+In the proposed framework, after obtaining the predicted loading amplitude and percentage of fatigue life, we estimate the RUL of a sample with the S-N curve of the material.
 
 \subsection{S-N curve with statistical distributions}
 \label{subsec: statistical sn curve}
@@ -233,14 +234,14 @@ An S-N curve serves as a look-up table for linking a classifier's predictions to
 \begin{enumerate}
     \item Plot the predicted loading amplitude and percentage of fatigue life in the S-N curve figure. For example, the prediction, class 1 (11.7 kN, 33\% fatigue life), is plotted as the red cross in Figure \ref{fig: rul infer procedure}.
     \item Determine fatigue life with the corresponding loading amplitude from the S-N curve. The fatigue life can be in the format of a single value such as the mean fatigue life or a statistical distribution described in Subsection \ref{subsec: statistical sn curve}.
-    \item If the fatigue life is represented by a single value, RUL can be calculated by Equation \eqref{eq: rul - value} as in \cite{rul-nn-eol-MAZHAR20071184}: 
+    \item If the fatigue life is represented by a single value, RUL can be calculated by Equation \eqref{eq: rul - value}: 
     \begin{equation}
         \label{eq: rul - value}
         RUL = N_{fl} - N_{c}
     \end{equation}
     where $N_{fl}$ is the fatigue life from an S-N curve and $N_c$ is the number of cycles translated from the predicted percentage of fatigue life a sample has undergone.
 
-    If the fatigue life at a given loading amplitude is modeled as a normal distribution, the RUL of a sample can be estimated by transforming the fatigue life distribution by a factor of the predicted percentage of fatigue life, as in Equation \eqref{eq: fatigue life dist} to \eqref{eq: rul - dist}:
+    If the fatigue life at a given loading amplitude is modeled as a normal distribution, the RUL of a sample can be estimated by transforming the fatigue life distribution by a factor of the predicted percentage of fatigue life, as in Equations \eqref{eq: fatigue life dist} to \eqref{eq: rul - dist}:
     \begin{equation}
         \label{eq: fatigue life dist}
         X \sim Normal(\mu, \sigma^2)
@@ -269,7 +270,7 @@ An S-N curve serves as a look-up table for linking a classifier's predictions to
 
 In this subsection, we present two examples of the RUL estimation based on the proposed framework. Because the true fatigue life of the testing specimens in the interrupted fatigue testing is not available, we cannot calculate the error of the RUL estimation for this stage. Instead, the 95\% confidence intervals of the RUL of specimens 3 and 5 are presented in Tables \ref{table: rul 3} and \ref{table: rul 5}. 
 
-In Table \ref{table: rul 3}, the 95\% confidence intervals successfully cover a referencing RUL calculated by subtracting the recorded number of cycles from the mean fatigue life. Among all measurements for specimen 3, only 1 measurement at location 2a is misclassified, indicating the strength of the proposed model in estimating the RUL for samples that had undergone low-amplitude fatigue cycles. Also, the prediction of the other 2 repeated measurements at location 2a are correct, implying that an accurate decision can be made by considering multiple measurements at one location. For specimen 5 in Table \ref{table: rul 5}, more measurements are misclassified. An interesting observation is, however, shorter RUL is estimated at location 1 and 2, at which higher damage levels could happen since the two locations are closer to the center of the specimen. 
+In Table \ref{table: rul 3}, the 95\% confidence intervals successfully cover a referencing RUL calculated by subtracting the recorded number of cycles from the mean fatigue life. Among all measurements for specimen 3, only 1 measurement at location 2a is misclassified, indicating the strength of the proposed model in estimating the RUL for samples that had undergone low-amplitude fatigue cycles. Also, the prediction of the other 2 repeated measurements at location 2a are correct, implying that an accurate decision can be made by considering multiple measurements at one location. For specimen 5 in Table \ref{table: rul 5}, more measurements are misclassified. An interesting observation is, however, shorter RUL is estimated at locations 1 and 2, at which higher damage levels could happen since the two locations are closer to the center of the specimen. 
 % \textcolor{red}{Results for the other specimens are reported in Appendix XX}.
 
 \begin{sidewaystable}
@@ -338,7 +339,7 @@ In Table \ref{table: rul 3}, the 95\% confidence intervals successfully cover a 
 \section{Discussion}
 This section discusses several findings and limitations of the RUL estimation framework including 
 \begin{enumerate*}[label=(\alph*)]
-    \item impacts from classifier designs and the structure of data, and
+    \item impacts of classifier designs and the structure of data, and
     \item decision making based on multiple measurements.
 \end{enumerate*}
 Other takeaways and issues are mentioned in Chapter \ref{chap: concl}.

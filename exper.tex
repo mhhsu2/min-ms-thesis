@@ -1,6 +1,6 @@
 \chapter{Experiment}
 \label{chap: exper}
-This chapter describes the experimental procedure for collecting the life cycle fatigue test dataset used in this research for developing ML models. First, cyclic fatigue testings were conducted till the fracture of a specimen to acquire the fatigue characteristics of a material. Second, to mimic the scenarios in the remanufacturing industry, interrupted fatigue testing was utilized to produce specimens at different fatigue levels as a representation of end-of-life products. Then, LU and NLU measurements are used to evaluate the fatigue damage of those specimens stopped at the predetermined number of cycles in the interrupted fatigue test. Besides, the residual stress and (FWHM) data from XRD are also presented.
+This chapter describes the experimental procedure for collecting the life cycle fatigue test dataset used in this research for developing ML models. First, cyclic fatigue testings were conducted till the fracture of a specimen to acquire the fatigue characteristics of a material. Second, to mimic the scenarios in the remanufacturing industry, interrupted fatigue testing was utilized to produce specimens at different fatigue levels as a representation of end-of-life products. Then, LU and NLU measurements are used to evaluate the fatigue damage of those specimens stopped at the predetermined number of cycles in the interrupted fatigue test. Besides, we used XRD to obtain the residual stress and FWHM data for the fatigued specimens.
 
 \section{Life cycle fatigue testing}
 The life cycle fatigue testing aims to collect fatigue life data to understand the fatigue behavior of the target material. The fatigue life of a material is defined as the total number of cycles that a material can sustain under a specified loading condition. In order to develop the S-N curve of a material, the material is tested at different loading stress amplitudes, and the fatigue test is repeated multiple times for each loading stress amplitude to account for the variance of fatigue life.
@@ -34,7 +34,7 @@ Three loading amplitudes, 11.7, 12.7, and 14.7 kN for the cyclic fatigue testing
 % \end{figure}
 
 \section{Interrupted fatigue testing}
-The purpose of performing interrupted fatigue testing is to produce damaged specimens at various fatigue levels by stopping the testing at several predetermined numbers of cycles. Considering the material cost and the time spent, the number of cycles applied to the specimens is set to be two levels, 33\% and 67\% fatigue life corresponding to the three loading amplitudes, 11.7, 12.7, and 14.7 kN. These specimens are used to represent the end-of-life products at different fatigue damage levels from the remanufacturing industry. Besides, three specimens without going through fatigue testing, i.e., 0\% fatigue life, are included as specimens at the healthy state. The summary of the interrupted fatigue testing specimens is presented in Table \ref{table: interrupted specimens}
+The purpose of performing interrupted fatigue testing is to produce damaged specimens at various fatigue levels by stopping the testing at several predetermined numbers of cycles. Considering the material cost and the time spent, the number of cycles applied to the specimens is set to be two levels, 33\% and 67\% fatigue life corresponding to the three loading amplitudes, 11.7, 12.7, and 14.7 kN. These specimens are used to represent EoL products at different fatigue damage levels from the remanufacturing industry. Besides, three specimens without going through fatigue testing, i.e., 0\% fatigue life, are included as specimens at the healthy state. The summary of the interrupted fatigue testing specimens is presented in Table \ref{table: interrupted specimens}
 
 \begin{table}[tb]
   \centering
@@ -73,7 +73,7 @@ In this research, the LU and NLU testings serve as the two main NDE methods for 
 % The ultrasonic testing is led by Prof. Matlack's group, and the testing system is shown in Figure \ref{fig: ultrasound setup}. 
 The LU and NLU measurements are both 1-D time-domain signals, but the two approaches differ based on different theories and parameters, e.g., excitation wave shape, frequency, and amplitude. Examples of LU and NLU signals are presented in Figure \ref{fig: lu and nlu signals raw}.
 
-LU and NLU measurements were collected at nine locations on a specimen as illustrated in Figure \ref{fig: measurement locations}, and each location was measured three times to ensure the measurement repeatability. As a result, for each specimen, there are $9 \times 3 = 27$ signal profiles produced. In total, the dataset contains 405 signal profiles.
+The LU and NLU measurements were collected at nine locations on a specimen as illustrated in Figure \ref{fig: measurement locations}, and each location was measured three times to ensure the measurement repeatability. As a result, for each specimen, there are $9 \times 3 = 27$ signal profiles produced. In total, the dataset contains 405 signal profiles.
 
 % \begin{figure}[tb]
 %   \centering
@@ -107,4 +107,4 @@ LU and NLU measurements were collected at nine locations on a specimen as illust
 \end{figure}
 
 \section{X-ray diffraction measurement}
-Another quantity of interest, residual stress, is measured by XRD in this research. Residual stress is known to be associated with fatigue behaviors such as crack initiation and propagation. Besides, the FWHM height of the diffraction peak in XRD is also extracted. Prof. Li's group performed the XRD measurements for a subset of the specimens in the interrupted fatigue testing dataset. The residual stress and FWHM measured by XRD are used in the regression tasks in Chapter \ref{chap: reg} as target variables.
+Another quantity of interest, residual stress, is measured by XRD in this research. Residual stress is known to be associated with fatigue behaviors such as crack initiation and propagation. Besides, the FWHM height of the diffraction peak in XRD is also extracted. The XRD measurements were performed on a subset of the specimens in the interrupted fatigue testing dataset. The residual stress and FWHM measured by XRD are used in the regression tasks in Chapter \ref{chap: reg} as target variables.

@@ -1,4 +1,4 @@
-\documentclass[draftthesis,tocnosub,noragright,centerchapter,12pt, mixcasechap]{uiucecethesis09}
+\documentclass[tocnosub,noragright,centerchapter,12pt, mixcasechap]{uiucecethesis09}
 
 % Use draftthesis for notes and date markings on every page.  Useful when you
 %   have multiple copies floating around.
@@ -25,11 +25,13 @@
 \usepackage[inline]{enumitem}
 \usepackage[justification=raggedright]{caption}	% makes captions ragged right - thanks to Bryce Lobdell
 \usepackage[square, numbers, compress]{natbib}
-\usepackage[colorlinks=true, citecolor=blue, linkcolor=black]{hyperref}
-% \usepackage{cleveref} % for referencing multiple equations
+\usepackage[colorlinks=true, citecolor=blue, linkcolor=blue]{hyperref}
+\usepackage{etoolbox} % for disabling link of citeauthor
+\pretocmd{\NAT@citexnum}{\@ifnum{\NAT@ctype>\z@}{\let\NAT@hyper@\relax}{}}{}{}
 
 % Some custom commands
 \newcommand{\fcctwo}{FCC\textsubscript{two-stage}}
+
 
 % Uncomment the appropriate one of the following four lines:
 \msthesis
@@ -141,23 +143,27 @@ To my parents, for their love and support.
 % INSERT REAL CONTENT HERE
 %
 
-% \include{intro}	% for INTRODUCTION in "intro.tex"
-% \include{litrev} % for LITERATURE REVIEW in "litrev.tex"
-% \include{exper} % for EXPERIMENTS in "exper.tex"
+\include{intro}	% for INTRODUCTION in "intro.tex"
+\include{litrev} % for LITERATURE REVIEW in "litrev.tex"
+\include{exper} % for EXPERIMENTS in "exper.tex"
 \include{model} % for MODELDEV in "model.tex"
-% \include{rul} % for RUL in "rul.tex"
-% \include{reg} % for REGRESSION in "reg.tex"
-% \include{concl} % for CONCLUSION in "concl.tex"
-% \include{feature} % for APPENDIX FEATURE in "feature.tex"
+\include{rul} % for RUL in "rul.tex"
+\include{reg} % for REGRESSION in "reg.tex"
+\include{concl} % for CONCLUSION in "concl.tex"
+\include{feature} % for APPENDIX FEATURE in "feature.tex"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % APPENDIX
 %
 \appendix
-%\include{apx}
+\include{apx}
 
 \backmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DISCLAIMER
+\include{disclaimer}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BIBLIOGRAPHY
@@ -170,10 +176,6 @@ To my parents, for their love and support.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % AUTHOR'S BIOGRAPHY
 % As of 10/03/2011, Author's Biography or Vita no longer accepted by Grad College
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% DISCLAIMER
-\include{disclaimer}
 
 \end{document}
 \endinput
