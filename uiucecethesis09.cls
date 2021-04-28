@@ -224,7 +224,7 @@
         Submitted in partial fulfillment of the requirements\\
         for the degree of \@degree\ in \@dept\\
         in the \@college\ of the\\
-        University of Illinois at Urbana-Champaign, \@degreeyear}%\vfil}%
+        University of Illinois Urbana-Champaign, \@degreeyear}%\vfil}%
      \vskip-0.60in %% ECE: edit to adjust title page spacing (SR)
        Urbana, Illinois
     \end{center} %% ECE: edit (SR)
@@ -238,7 +238,7 @@
           \hspace*{0.1in}Master's Committee:\\[12pt] %default is 0.2in
          \hspace*{0.53in}\begin{tabular}{l}\@committee\end{tabular}%\vfil} %default is 0.6in
         \else
-        \hspace*{0.1in}Adviser:\\[12pt] %default is 0.2in
+        \hspace*{0.0in}Adviser:\\[12pt] %default is 0.2in
          \hspace*{0.53in}\@advisor%\vfil} %default is 0.6in
         \fi
       \fi}
@@ -306,7 +306,7 @@
     \@Utitle\\[\baselineskip]
     \@author, \degree\\
     Department of \@dept\\
-    University of Illinois at Urbana-Champaign, \@degreeyear\\
+    University of Illinois Urbana-Champaign, \@degreeyear\\
     \@advisor, Adviser\\[\baselineskip]
     \end{center}\end{singlespace}\par\noindent\ignorespaces
     }{
